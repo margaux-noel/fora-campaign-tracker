@@ -324,6 +324,66 @@
     }
     .deal-chip-remove:hover { opacity: 1; }
 
+    /* ── Previous posts ── */
+    #savedPostsSection { display: none; margin-bottom: 24px; }
+    .saved-posts-list { display: flex; flex-direction: column; gap: 0; }
+    .saved-post-row {
+      display: flex; align-items: center; gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--tan);
+    }
+    .saved-post-row:last-child { border-bottom: none; }
+    .saved-post-title {
+      font-family: var(--font-body); font-size: 0.9rem;
+      color: var(--black); flex: 1;
+    }
+    .saved-post-date {
+      font-family: var(--font-title); font-size: 0.65rem;
+      text-transform: uppercase; letter-spacing: 1px; color: var(--taupe);
+      white-space: nowrap;
+    }
+    .saved-post-actions { display: flex; gap: 8px; }
+    .btn-saved-action {
+      padding: 7px 14px;
+      font-family: var(--font-title); font-size: 0.65rem;
+      text-transform: uppercase; letter-spacing: 1px;
+      cursor: pointer; transition: all 0.2s; border: 1px solid var(--tan);
+      background: transparent; color: var(--taupe);
+    }
+    .btn-saved-action:hover { border-color: var(--black); color: var(--black); }
+    .btn-saved-action.open { background: var(--black); color: var(--cream); border-color: var(--black); }
+    .btn-saved-action.open:hover { background: var(--taupe); }
+    .btn-saved-delete { color: #b45309; border-color: #fde68a; }
+    .btn-saved-delete:hover { background: #fff3cd; border-color: #f59e0b; color: #92400e; }
+
+    /* ── Saved post modal ── */
+    .post-modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.4);
+      display: none; align-items: center; justify-content: center; z-index: 100;
+    }
+    .post-modal-overlay.open { display: flex; }
+    .post-modal {
+      background: var(--white); border: 1px solid var(--tan);
+      width: 90%; max-width: 720px; max-height: 85vh;
+      display: flex; flex-direction: column;
+    }
+    .post-modal-header {
+      padding: 18px 24px; border-bottom: 1px solid var(--tan);
+      display: flex; align-items: center; gap: 12px;
+    }
+    .post-modal-header h3 {
+      font-family: var(--font-title); font-size: 0.9rem; font-weight: 500; flex: 1;
+    }
+    .post-modal-actions { display: flex; gap: 10px; }
+    .post-modal-body { padding: 28px 32px; overflow-y: auto; flex: 1; }
+    .btn-modal-close {
+      padding: 8px 16px; background: transparent; border: 1px solid var(--tan);
+      font-family: var(--font-title); font-size: 0.65rem;
+      text-transform: uppercase; letter-spacing: 1px;
+      cursor: pointer; color: var(--taupe); transition: all 0.2s;
+    }
+    .btn-modal-close:hover { border-color: var(--black); color: var(--black); }
+
     /* ── Generate + output ── */
     #generateSection { display: none; margin-top: 8px; }
     .btn-generate {
@@ -503,6 +563,17 @@
 
 <div class="gen-wrap">
 
+  <!-- Previous Posts -->
+  <div class="step-card" id="savedPostsSection">
+    <div class="step-card-header">
+      <span class="step-num done">↩</span>
+      <h2>Previous Posts</h2>
+    </div>
+    <div class="step-card-body">
+      <div class="saved-posts-list" id="savedPostsList"></div>
+    </div>
+  </div>
+
   <!-- Step 1: Select folder -->
   <div class="step-card">
     <div class="step-card-header">
@@ -675,6 +746,7 @@ Happy booking!</textarea>
       <div class="output-actions">
         <button class="btn-copy" id="btnCopy" onclick="copyPost()">Copy to Clipboard</button>
         <button class="btn-download" onclick="downloadPost()">Download HTML</button>
+        <button class="btn-download" id="btnSavePost" onclick="saveCurrentPost()">Save Post</button>
         <span class="copy-hint">Paste directly into Circle — links will be preserved</span>
         <button class="btn-restart" onclick="restart()">← Start Over</button>
       </div>
@@ -682,6 +754,20 @@ Happy booking!</textarea>
     </div>
   </div>
 
+</div>
+
+<!-- Saved post modal -->
+<div class="post-modal-overlay" id="postModalOverlay" onclick="closeModal(event)">
+  <div class="post-modal">
+    <div class="post-modal-header">
+      <h3 id="postModalTitle"></h3>
+      <div class="post-modal-actions">
+        <button class="btn-copy btn-modal-copy" id="btnModalCopy" onclick="copyModalPost()">Copy to Clipboard</button>
+        <button class="btn-modal-close" onclick="closeModal()">Close</button>
+      </div>
+    </div>
+    <div class="post-modal-body post-preview" id="postModalBody"></div>
+  </div>
 </div>
 
 <script>
@@ -729,10 +815,13 @@ function init() {
   const now = new Date();
   const monthFull  = now.toLocaleString('en-US', { month: 'long' });
   const monthShort = now.toLocaleString('en-US', { month: 'short' });
-  document.getElementById('postTitle').value  = `Early ${monthFull} Deals and Updates`;
-  document.getElementById('postByline').value = `Margaux Woellner · Travel Partnerships @ Fora · ${monthShort}`;
+  document.getElementById('postTitle').value  = '';
+  document.getElementById('postByline').value = '';
 
-  // Load saved Gemini key
+  // Load saved posts
+  renderSavedPosts();
+
+  // Load saved Groq key
   const savedKey = localStorage.getItem('fora_gemini_key');
   if (savedKey) {
     geminiApiKey = savedKey;
@@ -769,6 +858,9 @@ async function selectFolder() {
     document.getElementById('folderStatus').className = 'folder-status loaded';
     document.getElementById('folderStatusHeader').textContent = `${n} screenshots`;
     document.getElementById('step1num').classList.add('done');
+
+    // Set post title from folder name
+    document.getElementById('postTitle').value = `${dir.name} Deals and Updates`;
 
     savedDeals = [];
     currentIndex = 0;
@@ -1002,9 +1094,9 @@ function generatePost() {
     const link = `<a href="${url}">${escHtml(deal.supplier_name)}</a>`;
     const exc  = deal.exclusive_to_fora ? ' ⭐ Exclusive to Fora' : '';
     const dt   = deal.deal_title ? `${escHtml(deal.deal_title)} at ` : '';
-    const bs   = escHtml(deal.booking_start || '');
+    const bs   = escHtml(smartStart(deal.booking_start));
     const be   = deal.booking_end ? ` &ndash; ${escHtml(deal.booking_end)}` : '';
-    const ts   = escHtml(deal.travel_start || '');
+    const ts   = escHtml(smartStart(deal.travel_start));
     const te   = deal.travel_end ? ` &ndash; ${escHtml(deal.travel_end)}` : '';
     const desc = escHtml(deal.description || '');
     return `<div class="deal-entry">
@@ -1077,6 +1169,106 @@ function restart() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+// =====================================================================
+// SAVED POSTS
+// =====================================================================
+function getSavedPosts() {
+  try { return JSON.parse(localStorage.getItem('fora_saved_posts') || '[]'); }
+  catch { return []; }
+}
+
+function persistSavedPosts(posts) {
+  localStorage.setItem('fora_saved_posts', JSON.stringify(posts));
+}
+
+function saveCurrentPost() {
+  const title = document.getElementById('postTitle').value.trim() || 'Untitled Post';
+  const html  = document.getElementById('postPreview').innerHTML;
+  if (!html) return;
+
+  const posts = getSavedPosts();
+  posts.unshift({
+    id: Date.now().toString(),
+    title,
+    date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+    html
+  });
+  persistSavedPosts(posts);
+  renderSavedPosts();
+
+  const btn = document.getElementById('btnSavePost');
+  btn.textContent = '✓ Saved!';
+  setTimeout(() => { btn.textContent = 'Save Post'; }, 2000);
+}
+
+function renderSavedPosts() {
+  const posts = getSavedPosts();
+  const section = document.getElementById('savedPostsSection');
+  const list    = document.getElementById('savedPostsList');
+
+  if (!posts.length) { section.style.display = 'none'; return; }
+  section.style.display = 'block';
+
+  list.innerHTML = posts.map(p => `
+    <div class="saved-post-row" id="savedrow-${p.id}">
+      <span class="saved-post-title">${escHtml(p.title)}</span>
+      <span class="saved-post-date">${escHtml(p.date)}</span>
+      <div class="saved-post-actions">
+        <button class="btn-saved-action open" onclick="openSavedPost('${p.id}')">Open</button>
+        <button class="btn-saved-action btn-saved-delete" onclick="deleteSavedPost('${p.id}')">Delete</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openSavedPost(id) {
+  const post = getSavedPosts().find(p => p.id === id);
+  if (!post) return;
+  document.getElementById('postModalTitle').textContent = post.title;
+  document.getElementById('postModalBody').innerHTML = post.html;
+  document.getElementById('postModalOverlay').classList.add('open');
+}
+
+function deleteSavedPost(id) {
+  const posts = getSavedPosts().filter(p => p.id !== id);
+  persistSavedPosts(posts);
+  renderSavedPosts();
+}
+
+function closeModal(e) {
+  if (e && e.target !== document.getElementById('postModalOverlay')) return;
+  document.getElementById('postModalOverlay').classList.remove('open');
+}
+
+async function copyModalPost() {
+  const body = document.getElementById('postModalBody');
+  const btn  = document.getElementById('btnModalCopy');
+  try {
+    await navigator.clipboard.write([new ClipboardItem({
+      'text/html':  new Blob([body.innerHTML], { type: 'text/html' }),
+      'text/plain': new Blob([body.innerText],  { type: 'text/plain' })
+    })]);
+  } catch {
+    const range = document.createRange();
+    range.selectNodeContents(body);
+    const sel = window.getSelection();
+    sel.removeAllRanges(); sel.addRange(range);
+    document.execCommand('copy');
+  }
+  btn.textContent = '✓ Copied!';
+  btn.classList.add('copied');
+  setTimeout(() => { btn.textContent = 'Copy to Clipboard'; btn.classList.remove('copied'); }, 2500);
+}
+
+function smartStart(dateStr) {
+  if (!dateStr || dateStr.toLowerCase() === 'now') return 'Now';
+  const parsed = new Date(dateStr);
+  if (isNaN(parsed.getTime())) return dateStr; // unparseable — leave as-is
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return parsed < today ? 'Now' : dateStr;
+}
+
 function escHtml(s) {
   return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
@@ -1121,7 +1313,7 @@ async function readWithGemini(fileObj) {
   "booking_end": "booking window end (e.g. 'Sep 30, 2026')",
   "travel_start": "travel window start",
   "travel_end": "travel window end",
-  "description": "1–2 sentence summary of the offer (the More Info text)",
+  "description": "1–2 sentence summary of the offer benefits only (e.g. discounts, complimentary nights, inclusions). Do NOT include booking instructions, how to book, or references to where to find the deal.",
   "exclusive_to_fora": false
 }
 Set exclusive_to_fora to true only if the screenshot says 'Exclusive to Fora'. Use empty string for any field not visible.`;
