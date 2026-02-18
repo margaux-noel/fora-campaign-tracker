@@ -9,61 +9,17 @@
     .gen-wrap { padding: 32px 48px; max-width: 1200px; }
 
     /* ── Step cards ── */
-    .step-card {
-      background: var(--white);
-      border: 1px solid var(--tan);
-      margin-bottom: 24px;
-    }
-    .step-card-header {
-      padding: 18px 24px;
-      border-bottom: 1px solid var(--tan);
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-    .step-num {
-      font-family: var(--font-title);
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--white);
-      background: var(--taupe);
-      width: 22px;
-      height: 22px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
+    .step-card { background: var(--white); border: 1px solid var(--tan); margin-bottom: 24px; }
+    .step-card-header { padding: 18px 24px; border-bottom: 1px solid var(--tan); display: flex; align-items: center; gap: 14px; }
+    .step-num { font-family: var(--font-title); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white); background: var(--taupe); width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .step-num.done { background: #059669; }
-    .step-card-header h2 {
-      font-family: var(--font-title);
-      font-size: 0.95rem;
-      font-weight: 500;
-    }
-    .step-card-header p {
-      font-family: var(--font-body);
-      font-size: 0.8rem;
-      color: var(--taupe);
-      margin-left: auto;
-    }
+    .step-card-header h2 { font-family: var(--font-title); font-size: 0.95rem; font-weight: 500; }
+    .step-card-header p { font-family: var(--font-body); font-size: 0.8rem; color: var(--taupe); margin-left: auto; }
     .step-card-body { padding: 24px; }
 
     /* ── Folder picker ── */
     .folder-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-    .btn-folder {
-      display: flex; align-items: center; gap: 8px;
-      padding: 12px 22px;
-      background: transparent;
-      border: 1px solid var(--tan);
-      font-family: var(--font-title);
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      cursor: pointer;
-      color: var(--black);
-      transition: all 0.2s;
-    }
+    .btn-folder { display: flex; align-items: center; gap: 8px; padding: 12px 22px; background: transparent; border: 1px solid var(--tan); font-family: var(--font-title); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; color: var(--black); transition: all 0.2s; }
     .btn-folder:hover { border-color: var(--black); background: var(--cream); }
     .folder-status { font-family: var(--font-body); font-size: 0.875rem; color: var(--taupe); }
     .folder-status.loaded { color: #059669; }
@@ -71,285 +27,20 @@
     /* ── Post settings ── */
     .settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .sg-full { grid-column: 1 / -1; }
-    .settings-grid label {
-      display: block;
-      font-family: var(--font-title);
-      font-size: 0.62rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--taupe);
-      margin-bottom: 6px;
-    }
-    .settings-grid input, .settings-grid textarea {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid var(--tan);
-      font-family: var(--font-body);
-      font-size: 0.875rem;
-      background: var(--cream);
-      color: var(--black);
-    }
+    .settings-grid label { display: block; font-family: var(--font-title); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 1px; color: var(--taupe); margin-bottom: 6px; }
+    .settings-grid input, .settings-grid textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--tan); font-family: var(--font-body); font-size: 0.875rem; background: var(--cream); color: var(--black); }
     .settings-grid input:focus, .settings-grid textarea:focus { outline: none; border-color: var(--black); }
     .settings-grid textarea { resize: vertical; min-height: 75px; }
-
-    /* ── Deal entry ── */
-    #dealEntrySection { display: none; }
-
-    .deal-workspace {
-      display: grid;
-      grid-template-columns: 1fr 420px;
-      gap: 24px;
-      align-items: start;
-    }
-
-    /* screenshot panel */
-    .screenshot-panel {
-      position: sticky;
-      top: 20px;
-    }
-    .screenshot-nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
-    }
-    .screenshot-counter {
-      font-family: var(--font-title);
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--taupe);
-    }
-    .screenshot-filename {
-      font-family: var(--font-body);
-      font-size: 0.75rem;
-      color: var(--taupe);
-      font-style: italic;
-      margin-bottom: 8px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-    .screenshot-img-wrap {
-      border: 1px solid var(--tan);
-      background: #f5f5f5;
-      overflow: hidden;
-      max-height: 70vh;
-    }
-    .screenshot-img-wrap img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-    .nav-btn {
-      padding: 8px 16px;
-      background: transparent;
-      border: 1px solid var(--tan);
-      font-family: var(--font-title);
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      cursor: pointer;
-      color: var(--taupe);
-      transition: all 0.2s;
-    }
-    .nav-btn:hover:not(:disabled) { border-color: var(--black); color: var(--black); }
-    .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-
-    /* form panel */
-    .form-panel {}
-    .deal-form-title {
-      font-family: var(--font-title);
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--taupe);
-      margin-bottom: 16px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--tan);
-    }
-    .field-group { margin-bottom: 14px; }
-    .field-group label {
-      display: block;
-      font-family: var(--font-title);
-      font-size: 0.62rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--taupe);
-      margin-bottom: 5px;
-    }
-    .field-group input, .field-group textarea {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid var(--tan);
-      font-family: var(--font-body);
-      font-size: 0.875rem;
-      background: var(--cream);
-      color: var(--black);
-    }
-    .field-group input:focus, .field-group textarea:focus { outline: none; border-color: var(--black); }
-    .field-group textarea { resize: vertical; min-height: 65px; }
-    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-
-    /* supplier ID indicator */
-    .id-indicator {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 5px;
-      font-family: var(--font-title);
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .id-indicator.found { color: #059669; }
-    .id-indicator.missing { color: #b45309; }
-    .id-manual {
-      width: 100%;
-      padding: 8px 10px;
-      border: 1px solid #f59e0b;
-      background: #fffbeb;
-      font-family: monospace;
-      font-size: 0.75rem;
-      color: var(--black);
-      margin-top: 6px;
-      display: none;
-    }
-    .id-manual.show { display: block; }
-    .id-manual:focus { outline: none; border-color: var(--black); }
-
-    /* exclusive checkbox */
-    .exclusive-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-    .exclusive-row input[type="checkbox"] { width: 16px; height: 16px; cursor: pointer; }
-    .exclusive-row label {
-      font-family: var(--font-title);
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      cursor: pointer;
-      margin: 0;
-    }
-
-    /* form action buttons */
-    .form-actions { display: flex; gap: 10px; margin-top: 4px; }
-    .btn-skip {
-      padding: 12px 20px;
-      background: transparent;
-      border: 1px solid var(--tan);
-      font-family: var(--font-title);
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      cursor: pointer;
-      color: var(--taupe);
-      transition: all 0.2s;
-    }
-    .btn-skip:hover { border-color: var(--black); color: var(--black); }
-    .btn-save-deal {
-      flex: 1;
-      padding: 12px 20px;
-      background: var(--black);
-      color: var(--cream);
-      border: none;
-      font-family: var(--font-title);
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .btn-save-deal:hover { background: var(--olive); }
-    .btn-save-deal.saved { background: #059669; }
-
-    /* progress bar */
-    .progress-bar-wrap {
-      margin-top: 20px;
-      border-top: 1px solid var(--tan);
-      padding-top: 16px;
-    }
-    .progress-label {
-      font-family: var(--font-title);
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--taupe);
-      margin-bottom: 8px;
-      display: flex;
-      justify-content: space-between;
-    }
-    .progress-track {
-      height: 4px;
-      background: var(--tan);
-    }
-    .progress-fill {
-      height: 100%;
-      background: var(--black);
-      transition: width 0.3s;
-    }
-
-    /* deals summary */
-    .deals-summary {
-      margin-top: 16px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-    .deal-chip {
-      font-family: var(--font-title);
-      font-size: 0.65rem;
-      padding: 4px 12px;
-      background: #ecfdf5;
-      color: #059669;
-      border: 1px solid #bbf7d0;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-    }
-    .deal-chip.no-id { background: #fff3cd; color: #b45309; border-color: #fde68a; }
-    .deal-chip-remove {
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: inherit;
-      padding: 0;
-      font-size: 0.9rem;
-      line-height: 1;
-      opacity: 0.6;
-    }
-    .deal-chip-remove:hover { opacity: 1; }
 
     /* ── Previous posts ── */
     #savedPostsSection { display: none; margin-bottom: 24px; }
     .saved-posts-list { display: flex; flex-direction: column; gap: 0; }
-    .saved-post-row {
-      display: flex; align-items: center; gap: 16px;
-      padding: 14px 0;
-      border-bottom: 1px solid var(--tan);
-    }
+    .saved-post-row { display: flex; align-items: center; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--tan); }
     .saved-post-row:last-child { border-bottom: none; }
-    .saved-post-title {
-      font-family: var(--font-body); font-size: 0.9rem;
-      color: var(--black); flex: 1;
-    }
-    .saved-post-date {
-      font-family: var(--font-title); font-size: 0.65rem;
-      text-transform: uppercase; letter-spacing: 1px; color: var(--taupe);
-      white-space: nowrap;
-    }
+    .saved-post-title { font-family: var(--font-body); font-size: 0.9rem; color: var(--black); flex: 1; }
+    .saved-post-date { font-family: var(--font-title); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; color: var(--taupe); white-space: nowrap; }
     .saved-post-actions { display: flex; gap: 8px; }
-    .btn-saved-action {
-      padding: 7px 14px;
-      font-family: var(--font-title); font-size: 0.65rem;
-      text-transform: uppercase; letter-spacing: 1px;
-      cursor: pointer; transition: all 0.2s; border: 1px solid var(--tan);
-      background: transparent; color: var(--taupe);
-    }
+    .btn-saved-action { padding: 7px 14px; font-family: var(--font-title); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.2s; border: 1px solid var(--tan); background: transparent; color: var(--taupe); }
     .btn-saved-action:hover { border-color: var(--black); color: var(--black); }
     .btn-saved-action.open { background: var(--black); color: var(--cream); border-color: var(--black); }
     .btn-saved-action.open:hover { background: var(--taupe); }
@@ -357,114 +48,30 @@
     .btn-saved-delete:hover { background: #fff3cd; border-color: #f59e0b; color: #92400e; }
 
     /* ── Saved post modal ── */
-    .post-modal-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.4);
-      display: none; align-items: center; justify-content: center; z-index: 100;
-    }
+    .post-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: none; align-items: center; justify-content: center; z-index: 100; }
     .post-modal-overlay.open { display: flex; }
-    .post-modal {
-      background: var(--white); border: 1px solid var(--tan);
-      width: 90%; max-width: 720px; max-height: 85vh;
-      display: flex; flex-direction: column;
-    }
-    .post-modal-header {
-      padding: 18px 24px; border-bottom: 1px solid var(--tan);
-      display: flex; align-items: center; gap: 12px;
-    }
-    .post-modal-header h3 {
-      font-family: var(--font-title); font-size: 0.9rem; font-weight: 500; flex: 1;
-    }
+    .post-modal { background: var(--white); border: 1px solid var(--tan); width: 90%; max-width: 720px; max-height: 85vh; display: flex; flex-direction: column; }
+    .post-modal-header { padding: 18px 24px; border-bottom: 1px solid var(--tan); display: flex; align-items: center; gap: 12px; }
+    .post-modal-header h3 { font-family: var(--font-title); font-size: 0.9rem; font-weight: 500; flex: 1; }
     .post-modal-actions { display: flex; gap: 10px; }
     .post-modal-body { padding: 28px 32px; overflow-y: auto; flex: 1; }
-    .btn-modal-close {
-      padding: 8px 16px; background: transparent; border: 1px solid var(--tan);
-      font-family: var(--font-title); font-size: 0.65rem;
-      text-transform: uppercase; letter-spacing: 1px;
-      cursor: pointer; color: var(--taupe); transition: all 0.2s;
-    }
+    .btn-modal-close { padding: 8px 16px; background: transparent; border: 1px solid var(--tan); font-family: var(--font-title); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; color: var(--taupe); transition: all 0.2s; }
     .btn-modal-close:hover { border-color: var(--black); color: var(--black); }
 
     /* ── Generate + output ── */
-    #generateSection { display: none; margin-top: 8px; }
-    .btn-generate {
-      width: 100%;
-      padding: 16px;
-      background: var(--black);
-      color: var(--cream);
-      border: none;
-      font-family: var(--font-title);
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
+    .btn-generate { padding: 16px 32px; background: var(--black); color: var(--cream); border: none; font-family: var(--font-title); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: background 0.2s; }
     .btn-generate:hover { background: var(--burgundy); }
-
-    #outputSection { display: none; }
-    .output-actions {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 20px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    .btn-copy {
-      padding: 14px 28px;
-      background: var(--black);
-      color: var(--cream);
-      border: none;
-      font-family: var(--font-title);
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
+    #outputSection { display: none; margin-top: 8px; }
+    .output-actions { display: flex; gap: 12px; margin-bottom: 20px; align-items: center; flex-wrap: wrap; }
+    .btn-copy { padding: 14px 28px; background: var(--black); color: var(--cream); border: none; font-family: var(--font-title); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer; transition: background 0.2s; }
     .btn-copy:hover { background: var(--olive); }
     .btn-copy.copied { background: #059669; }
-    .btn-download {
-      padding: 14px 24px;
-      background: transparent;
-      border: 1px solid var(--tan);
-      font-family: var(--font-title);
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      cursor: pointer;
-      color: var(--black);
-      transition: all 0.2s;
-    }
+    .btn-download { padding: 14px 24px; background: transparent; border: 1px solid var(--tan); font-family: var(--font-title); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; color: var(--black); transition: all 0.2s; }
     .btn-download:hover { border-color: var(--black); }
-    .btn-restart {
-      margin-left: auto;
-      padding: 14px 24px;
-      background: transparent;
-      border: 1px solid var(--tan);
-      font-family: var(--font-title);
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      cursor: pointer;
-      color: var(--taupe);
-      transition: all 0.2s;
-    }
+    .btn-restart { margin-left: auto; padding: 14px 24px; background: transparent; border: 1px solid var(--tan); font-family: var(--font-title); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; color: var(--taupe); transition: all 0.2s; }
     .btn-restart:hover { color: var(--black); border-color: var(--black); }
-    .copy-hint {
-      font-family: var(--font-body);
-      font-size: 0.8rem;
-      color: var(--taupe);
-      font-style: italic;
-    }
-    .post-preview {
-      background: var(--white);
-      border: 1px solid var(--tan);
-      padding: 32px 36px;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-size: 14px;
-      line-height: 1.6;
-      color: #1a1a1a;
-    }
+    .copy-hint { font-family: var(--font-body); font-size: 0.8rem; color: var(--taupe); font-style: italic; }
+    .post-preview { background: var(--white); border: 1px solid var(--tan); padding: 32px 36px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 14px; line-height: 1.6; color: #1a1a1a; }
     .post-preview h1 { font-size: 1.15em; margin: 0 0 4px; }
     .post-preview .byline { color: #888; font-size: 0.82em; margin: 0 0 20px; }
     .post-preview p { margin: 0 0 10px; }
@@ -474,65 +81,52 @@
     .post-preview li { margin-bottom: 1px; }
     .post-preview a { color: #1a1a1a; }
 
-    /* ── API key setup ── */
+    /* ── API key ── */
     .api-key-row { margin-bottom: 16px; }
-    .api-key-row label {
-      display: flex; align-items: center; gap: 8px;
-      font-family: var(--font-title); font-size: 0.62rem;
-      text-transform: uppercase; letter-spacing: 1px;
-      color: var(--taupe); margin-bottom: 6px;
-    }
-    .api-key-row label a {
-      font-family: var(--font-title); font-size: 0.6rem;
-      color: var(--burgundy); text-decoration: none; letter-spacing: 0.5px;
-    }
+    .api-key-row label { display: flex; align-items: center; gap: 8px; font-family: var(--font-title); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 1px; color: var(--taupe); margin-bottom: 6px; }
+    .api-key-row label a { font-family: var(--font-title); font-size: 0.6rem; color: var(--burgundy); text-decoration: none; letter-spacing: 0.5px; }
     .api-key-row label a:hover { text-decoration: underline; }
     .api-key-input-row { display: flex; gap: 10px; align-items: stretch; }
-    .api-key-input-row input {
-      flex: 1; padding: 10px 12px;
-      border: 1px solid var(--tan); background: var(--cream);
-      font-family: monospace; font-size: 0.8rem; color: var(--black);
-    }
+    .api-key-input-row input { flex: 1; padding: 10px 12px; border: 1px solid var(--tan); background: var(--cream); font-family: monospace; font-size: 0.8rem; color: var(--black); }
     .api-key-input-row input:focus { outline: none; border-color: var(--black); }
-    .btn-save-key {
-      padding: 10px 18px; background: var(--black); color: var(--cream); border: none;
-      font-family: var(--font-title); font-size: 0.7rem;
-      text-transform: uppercase; letter-spacing: 1px; cursor: pointer;
-    }
+    .btn-save-key { padding: 10px 18px; background: var(--black); color: var(--cream); border: none; font-family: var(--font-title); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; }
     .btn-save-key:hover { background: var(--olive); }
-    .api-key-status {
-      margin-top: 6px; font-family: var(--font-body); font-size: 0.78rem;
-    }
+    .api-key-status { margin-top: 6px; font-family: var(--font-body); font-size: 0.78rem; }
     .api-key-status.ok { color: #059669; }
     .api-key-status.none { color: var(--taupe); }
 
-    /* ── AI loading overlay ── */
-    .form-panel-wrap { position: relative; }
-    .ai-loading {
-      position: absolute; inset: 0;
-      background: rgba(254,250,245,0.92);
-      display: none; flex-direction: column;
-      align-items: center; justify-content: center; gap: 12px; z-index: 10;
-    }
-    .ai-loading.on { display: flex; }
-    .ai-spinner {
-      width: 28px; height: 28px;
-      border: 2px solid var(--tan); border-top-color: var(--taupe);
-      border-radius: 50%; animation: spin 0.7s linear infinite;
-    }
+    /* ── Batch progress ── */
+    #batchSection { display: none; }
+    .batch-status-text { font-family: var(--font-body); font-size: 0.875rem; color: var(--taupe); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .batch-bar-track { height: 4px; background: var(--tan); }
+    .batch-bar-fill { height: 100%; background: var(--black); transition: width 0.25s; width: 0%; }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .ai-loading-text {
-      font-family: var(--font-title); font-size: 0.7rem;
-      text-transform: uppercase; letter-spacing: 1.5px; color: var(--taupe);
-    }
-    .ai-filled-note {
-      display: none; margin-bottom: 12px;
-      font-family: var(--font-title); font-size: 0.65rem;
-      text-transform: uppercase; letter-spacing: 0.5px;
-      color: #059669; padding: 8px 10px;
-      background: #ecfdf5; border: 1px solid #bbf7d0;
-    }
-    .ai-filled-note.error { color: #b45309; background: #fff3cd; border-color: #fde68a; }
+    .spinner { width: 16px; height: 16px; border: 2px solid var(--tan); border-top-color: var(--taupe); border-radius: 50%; animation: spin 0.7s linear infinite; flex-shrink: 0; }
+
+    /* ── Review table ── */
+    #reviewSection { display: none; }
+    .review-top-bar { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+    .review-hint { font-family: var(--font-body); font-size: 0.8rem; color: var(--taupe); font-style: italic; }
+    .review-table-wrap { overflow-x: auto; border: 1px solid var(--tan); }
+    .review-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    .review-table th { font-family: var(--font-title); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1px; color: var(--taupe); background: var(--cream); padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--tan); white-space: nowrap; }
+    .review-table td { padding: 6px 8px; border-bottom: 1px solid #f0ece6; vertical-align: top; }
+    .review-table tr:last-child td { border-bottom: none; }
+    .rt-input { width: 100%; border: none; background: transparent; font-family: var(--font-body); font-size: 0.82rem; color: var(--black); padding: 4px 0; outline: none; min-width: 0; }
+    .rt-input:focus { background: #f9f6f2; padding: 4px 6px; }
+    .rt-textarea { width: 100%; border: none; background: transparent; font-family: var(--font-body); font-size: 0.82rem; color: var(--black); padding: 4px 0; outline: none; resize: none; min-height: 58px; line-height: 1.4; display: block; }
+    .rt-textarea:focus { background: #f9f6f2; padding: 4px 6px; }
+    .cell-id-ok { color: #059669; font-family: var(--font-title); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.5px; padding-top: 4px; }
+    .cell-id-missing-label { color: #b45309; font-family: var(--font-title); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
+    .id-action-row { display: flex; gap: 5px; margin-bottom: 5px; }
+    .btn-small { padding: 4px 8px; font-family: var(--font-title); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.5px; border: 1px solid var(--tan); background: transparent; cursor: pointer; color: var(--taupe); white-space: nowrap; display: inline-block; }
+    .btn-small:hover { border-color: var(--black); color: var(--black); }
+    .id-paste-input { width: 100%; padding: 4px 6px; border: 1px solid #f59e0b; background: #fffbeb; font-family: monospace; font-size: 0.72rem; color: var(--black); outline: none; box-sizing: border-box; }
+    .id-paste-input:focus { border-color: var(--black); }
+    .review-missing-note { margin-top: 12px; font-family: var(--font-body); font-size: 0.8rem; color: #b45309; }
+    .review-bottom-bar { margin-top: 16px; }
+    .row-error { font-family: var(--font-body); font-size: 0.72rem; color: #b45309; margin-bottom: 3px; }
+    .row-num { text-align: center; color: var(--taupe); font-family: var(--font-title); font-size: 0.7rem; width: 28px; }
   </style>
 </head>
 <body>
@@ -553,7 +147,7 @@
   <!-- Previous Posts -->
   <div class="step-card" id="savedPostsSection">
     <div class="step-card-header">
-      <span class="step-num done">↩</span>
+      <span class="step-num done">&#8617;</span>
       <h2>Previous Posts</h2>
     </div>
     <div class="step-card-body">
@@ -561,7 +155,7 @@
     </div>
   </div>
 
-  <!-- Step 1: Select folder -->
+  <!-- Step 1: Select folder + API key -->
   <div class="step-card">
     <div class="step-card-header">
       <span class="step-num" id="step1num">1</span>
@@ -569,19 +163,17 @@
       <p id="folderStatusHeader"></p>
     </div>
     <div class="step-card-body">
-
       <div class="api-key-row">
         <label>
-          Groq API Key (enables auto-reading screenshots — free, no billing required)
-          <a href="https://console.groq.com/keys" target="_blank">Get free key →</a>
+          Groq API Key (auto-reads screenshots &mdash; free, no billing required)
+          <a href="https://console.groq.com/keys" target="_blank">Get free key &rarr;</a>
         </label>
         <div class="api-key-input-row">
-          <input type="password" id="geminiKey" placeholder="gsk_…" autocomplete="off">
+          <input type="password" id="geminiKey" placeholder="gsk_&hellip;" autocomplete="off">
           <button class="btn-save-key" onclick="saveApiKey()">Save Key</button>
         </div>
-        <div class="api-key-status none" id="apiKeyStatus">No key saved — screenshots will be filled manually</div>
+        <div class="api-key-status none" id="apiKeyStatus">No key saved &mdash; screenshots will need to be filled in manually</div>
       </div>
-
       <div class="folder-row">
         <button class="btn-folder" onclick="selectFolder()">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -589,7 +181,7 @@
           </svg>
           Choose Folder
         </button>
-        <span class="folder-status" id="folderStatus">No folder selected — use Chrome or Edge</span>
+        <span class="folder-status" id="folderStatus">No folder selected &mdash; use Chrome or Edge</span>
       </div>
     </div>
   </div>
@@ -614,7 +206,7 @@
           <label>Intro Text <span id="introAiStatus" style="font-style:italic;text-transform:none;letter-spacing:0;color:var(--taupe);font-family:var(--font-body);font-size:0.75rem;"></span></label>
           <textarea id="postIntro">Hi advisors,
 
-Some more great deals coming your way! All deals can be found on the Deals tab in Portal, with additional details, instructions on how to book, and terms & conditions.
+Some more great deals coming your way! All deals can be found on the Deals tab in Portal, with additional details, instructions on how to book, and terms &amp; conditions.
 
 Happy booking!</textarea>
         </div>
@@ -622,111 +214,63 @@ Happy booking!</textarea>
     </div>
   </div>
 
-  <!-- Step 3: Deal entry (shows after folder selected) -->
-  <div class="step-card" id="dealEntrySection">
+  <!-- Step 3: Batch processing progress -->
+  <div class="step-card" id="batchSection">
     <div class="step-card-header">
       <span class="step-num" id="step3num">3</span>
-      <h2>Enter Deal Details</h2>
-      <p id="dealEntrySubtitle"></p>
+      <h2>Reading Screenshots</h2>
+      <p id="batchHeaderStatus"></p>
     </div>
     <div class="step-card-body">
-
-      <div class="deal-workspace">
-
-        <!-- Left: screenshot -->
-        <div class="screenshot-panel">
-          <div class="screenshot-nav">
-            <button class="nav-btn" id="btnPrev" onclick="navigate(-1)" disabled>← Prev</button>
-            <span class="screenshot-counter" id="screenshotCounter">1 / 1</span>
-            <button class="nav-btn" id="btnNext" onclick="navigate(1)">Next →</button>
-          </div>
-          <div class="screenshot-filename" id="screenshotFilename"></div>
-          <div class="screenshot-img-wrap">
-            <img id="screenshotImg" src="" alt="Deal screenshot">
-          </div>
-        </div>
-
-        <!-- Right: form -->
-        <div class="form-panel form-panel-wrap">
-          <div class="ai-loading" id="aiLoading">
-            <div class="ai-spinner"></div>
-            <div class="ai-loading-text">Reading screenshot with AI…</div>
-          </div>
-          <div class="ai-filled-note" id="aiFilledNote"></div>
-          <div class="deal-form-title">Deal Details</div>
-
-          <div class="field-group">
-            <label>Supplier / Hotel Name</label>
-            <input type="text" id="fSupplier" placeholder="e.g. The Breakers Palm Beach"
-              oninput="onSupplierInput(this.value)" autocomplete="off">
-            <div class="id-indicator" id="idIndicator"></div>
-            <input type="text" id="fSupplierId" class="id-manual"
-              placeholder="Paste supplier UUID here"
-              oninput="onManualId(this.value)">
-          </div>
-
-          <div class="field-group">
-            <label>Deal Title</label>
-            <input type="text" id="fTitle" placeholder="e.g. 4th Night Complimentary">
-          </div>
-
-          <div class="field-group">
-            <label>Booking Window</label>
-            <div class="field-row">
-              <input type="text" id="fBookStart" placeholder="e.g. Now">
-              <input type="text" id="fBookEnd" placeholder="e.g. Apr 19, 2027">
-            </div>
-          </div>
-
-          <div class="field-group">
-            <label>Travel Window</label>
-            <div class="field-row">
-              <input type="text" id="fTravelStart" placeholder="e.g. Jan 3, 2026">
-              <input type="text" id="fTravelEnd" placeholder="e.g. Apr 19, 2027">
-            </div>
-          </div>
-
-          <div class="field-group">
-            <label>More Info (1–2 sentences)</label>
-            <textarea id="fDescription" placeholder="Brief description of the deal offer…"></textarea>
-          </div>
-
-          <div class="exclusive-row">
-            <input type="checkbox" id="fExclusive">
-            <label for="fExclusive">Exclusive to Fora</label>
-          </div>
-
-          <div class="form-actions">
-            <button class="btn-skip" onclick="skipCurrent()">Skip</button>
-            <button class="btn-save-deal" id="btnSaveDeal" onclick="saveDeal()">Save &amp; Next →</button>
-          </div>
-
-          <!-- Progress -->
-          <div class="progress-bar-wrap">
-            <div class="progress-label">
-              <span>Deals saved</span>
-              <span id="progressText">0 saved</span>
-            </div>
-            <div class="progress-track">
-              <div class="progress-fill" id="progressFill" style="width:0%"></div>
-            </div>
-            <div class="deals-summary" id="dealsSummary"></div>
-          </div>
-
-        </div>
+      <div class="batch-status-text" id="batchStatusText">
+        <span class="spinner"></span> Starting&hellip;
+      </div>
+      <div class="batch-bar-track">
+        <div class="batch-bar-fill" id="batchBarFill"></div>
       </div>
     </div>
   </div>
 
-  <!-- Generate button -->
-  <div id="generateSection">
-    <button class="btn-generate" onclick="generatePost()">Generate Post →</button>
+  <!-- Step 4: Review table + Generate -->
+  <div class="step-card" id="reviewSection">
+    <div class="step-card-header">
+      <span class="step-num" id="step4num">4</span>
+      <h2>Review &amp; Generate</h2>
+      <p id="reviewSubtitle"></p>
+    </div>
+    <div class="step-card-body">
+      <div class="review-top-bar">
+        <button class="btn-generate" onclick="generatePost()">Generate Post &rarr;</button>
+        <span class="review-hint">Edit any cell inline, or generate right away</span>
+      </div>
+      <div class="review-table-wrap">
+        <table class="review-table">
+          <thead>
+            <tr>
+              <th style="width:28px;">#</th>
+              <th style="min-width:175px;">Hotel Name</th>
+              <th style="min-width:145px;">Deal Title</th>
+              <th style="min-width:145px;">Booking Window</th>
+              <th style="min-width:145px;">Travel Window</th>
+              <th style="min-width:220px;">Description</th>
+              <th style="width:46px;text-align:center;">Excl.</th>
+              <th style="min-width:135px;">Supplier ID</th>
+            </tr>
+          </thead>
+          <tbody id="reviewTableBody"></tbody>
+        </table>
+      </div>
+      <div id="reviewMissingNote"></div>
+      <div class="review-bottom-bar">
+        <button class="btn-generate" onclick="generatePost()">Generate Post &rarr;</button>
+      </div>
+    </div>
   </div>
 
   <!-- Output -->
-  <div class="step-card" id="outputSection" style="margin-top:24px;">
+  <div class="step-card" id="outputSection">
     <div class="step-card-header">
-      <span class="step-num done">✓</span>
+      <span class="step-num done">&#10003;</span>
       <h2>Your Circle Post</h2>
     </div>
     <div class="step-card-body">
@@ -734,8 +278,8 @@ Happy booking!</textarea>
         <button class="btn-copy" id="btnCopy" onclick="copyPost()">Copy to Clipboard</button>
         <button class="btn-download" onclick="downloadPost()">Download HTML</button>
         <button class="btn-download" id="btnSavePost" onclick="saveCurrentPost()">Save Post</button>
-        <span class="copy-hint">Paste directly into Circle — links will be preserved</span>
-        <button class="btn-restart" onclick="restart()">← Start Over</button>
+        <span class="copy-hint">Paste directly into Circle &mdash; links will be preserved</span>
+        <button class="btn-restart" onclick="restart()">&larr; Start Over</button>
       </div>
       <div class="post-preview" id="postPreview"></div>
     </div>
@@ -759,7 +303,7 @@ Happy booking!</textarea>
 
 <script>
 // =====================================================================
-// SUPPLIER ID MAP  — grows automatically as you add new ones
+// SUPPLIER ID MAP
 // =====================================================================
 const DEFAULT_MAP = {
   "the breakers palm beach": "2d011958-a085-4f90-bd14-ade99a62eaab",
@@ -778,7 +322,7 @@ const DEFAULT_MAP = {
   "conrad orlando at evermore": "483f6917-d5fd-4aa7-bd15-9a5df868c8e1",
   "buahan, a banyan tree escape": "cb880327-844a-44fa-b029-dfff2bc8090c",
   "buahan a banyan tree escape": "cb880327-844a-44fa-b029-dfff2bc8090c",
-  "zadún, a ritz-carlton reserve, los cabos": "91947c33-9969-44c1-baad-c1476cbc7a70",
+  "zad\u00fan, a ritz-carlton reserve, los cabos": "91947c33-9969-44c1-baad-c1476cbc7a70",
   "zadun a ritz-carlton reserve": "91947c33-9969-44c1-baad-c1476cbc7a70",
   "naples grande beach resort": "8ef44601-f0a6-4da6-8e01-439c20cf70d0",
   "the st. regis deer valley": "c48572fe-bc5e-480e-8658-c35d607533df",
@@ -788,14 +332,12 @@ const DEFAULT_MAP = {
 // =====================================================================
 // STATE
 // =====================================================================
-let files = [];
-let currentIndex = 0;
-let savedDeals = [];
+let files       = [];
+let savedDeals  = [];
 let supplierMap = {};
 let geminiApiKey = '';
 
 function init() {
-  // Build supplierMap with all keys pre-normalised so lookups are encoding-safe
   supplierMap = {};
   for (const [k, v] of Object.entries(DEFAULT_MAP)) {
     supplierMap[normalise(k)] = v;
@@ -809,22 +351,15 @@ function init() {
     }
   } catch { localStorage.removeItem('fora_supplier_map'); }
 
-  // Auto-populate title and byline with current month
-  const now = new Date();
-  const monthFull  = now.toLocaleString('en-US', { month: 'long' });
-  const monthShort = now.toLocaleString('en-US', { month: 'short' });
   document.getElementById('postTitle').value  = '';
   document.getElementById('postByline').value = '';
-
-  // Load saved posts
   renderSavedPosts();
 
-  // Load saved Groq key
   const savedKey = localStorage.getItem('fora_gemini_key');
   if (savedKey) {
     geminiApiKey = savedKey;
     document.getElementById('geminiKey').value = savedKey;
-    document.getElementById('apiKeyStatus').textContent = '✓ Key saved — screenshots will be auto-read';
+    document.getElementById('apiKeyStatus').textContent = '\u2713 Key saved \u2014 screenshots will be auto-read';
     document.getElementById('apiKeyStatus').className = 'api-key-status ok';
   }
 }
@@ -852,199 +387,270 @@ async function selectFolder() {
     }
 
     const n = files.length;
-    document.getElementById('folderStatus').textContent = `✓ ${dir.name}  (${n} image${n !== 1 ? 's' : ''})`;
+    document.getElementById('folderStatus').textContent = '\u2713 ' + dir.name + '  (' + n + ' image' + (n !== 1 ? 's' : '') + ')';
     document.getElementById('folderStatus').className = 'folder-status loaded';
-    document.getElementById('folderStatusHeader').textContent = `${n} screenshots`;
+    document.getElementById('folderStatusHeader').textContent = n + ' screenshots';
     document.getElementById('step1num').classList.add('done');
+    document.getElementById('postTitle').value = dir.name + ' Deals and Updates';
 
-    // Set post title from folder name
-    document.getElementById('postTitle').value = `${dir.name} Deals and Updates`;
-
-    // AI-generate intro text if key is present
     if (geminiApiKey) generateIntroText(dir.name);
 
-    savedDeals = [];
-    currentIndex = 0;
-    showDealEntry();
-    loadScreenshot(0);
+    batchProcess(files);
   } catch (e) {
     if (e.name !== 'AbortError') alert('Could not open folder: ' + e.message);
   }
 }
 
-function showDealEntry() {
-  document.getElementById('dealEntrySection').style.display = 'block';
-  document.getElementById('dealEntrySection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+// =====================================================================
+// BATCH PROCESSING
+// =====================================================================
+async function batchProcess(fileList) {
+  savedDeals = [];
+  document.getElementById('reviewSection').style.display = 'none';
+  document.getElementById('outputSection').style.display = 'none';
+
+  const batchSection = document.getElementById('batchSection');
+  batchSection.style.display = 'block';
+  batchSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.getElementById('step3num').classList.remove('done');
+  document.getElementById('batchBarFill').style.width = '0%';
+
+  const total = fileList.length;
+
+  if (!geminiApiKey) {
+    // No API key — create empty rows and jump straight to review table
+    document.getElementById('batchStatusText').innerHTML = 'No API key \u2014 open the table and fill in details manually';
+    document.getElementById('batchBarFill').style.width = '100%';
+    savedDeals = fileList.map((f, i) => ({
+      _fileIndex: i,
+      supplier_name: '', deal_title: '',
+      booking_start: '', booking_end: '',
+      travel_start: '', travel_end: '',
+      description: '', exclusive_to_fora: false, supplier_id: null,
+    }));
+    document.getElementById('step3num').classList.add('done');
+    setTimeout(() => { batchSection.style.display = 'none'; renderReviewTable(); }, 400);
+    return;
+  }
+
+  updateBatchProgress(0, total);
+
+  let completed = 0;
+  const results = await Promise.all(
+    fileList.map(async (f, i) => {
+      const deal = await readDealFromScreenshot(f.file);
+      deal._fileIndex = i;
+      completed++;
+      updateBatchProgress(completed, total);
+      return deal;
+    })
+  );
+
+  savedDeals = results;
+  document.getElementById('step3num').classList.add('done');
+  document.getElementById('batchHeaderStatus').textContent = '\u2713 ' + total + ' read';
+
+  setTimeout(() => {
+    batchSection.style.display = 'none';
+    renderReviewTable();
+  }, 600);
 }
 
-// =====================================================================
-// SCREENSHOT NAVIGATION
-// =====================================================================
-function loadScreenshot(index) {
-  if (!files.length) return;
-  currentIndex = Math.max(0, Math.min(index, files.length - 1));
-  const f = files[currentIndex];
-
-  document.getElementById('screenshotImg').src = f.url;
-  document.getElementById('screenshotFilename').textContent = f.name;
-  document.getElementById('screenshotCounter').textContent = `${currentIndex + 1} / ${files.length}`;
-  document.getElementById('btnPrev').disabled = currentIndex === 0;
-  document.getElementById('btnNext').disabled = currentIndex === files.length - 1;
-  document.getElementById('dealEntrySubtitle').textContent = `Screenshot ${currentIndex + 1} of ${files.length}`;
-
-  // Check if this screenshot already has a saved deal — if so, pre-fill
-  const existing = savedDeals.find(d => d._fileIndex === currentIndex);
-  if (existing) {
-    fillForm(existing);
-    document.getElementById('aiFilledNote').style.display = 'none';
-    document.getElementById('btnSaveDeal').textContent = 'Update';
+function updateBatchProgress(done, total) {
+  const pct = total ? Math.round(done / total * 100) : 0;
+  document.getElementById('batchBarFill').style.width = pct + '%';
+  document.getElementById('batchHeaderStatus').textContent = done + ' / ' + total;
+  const statusEl = document.getElementById('batchStatusText');
+  if (done < total) {
+    statusEl.innerHTML = '<span class="spinner"></span> Reading screenshot ' + (done + 1) + ' of ' + total + '\u2026';
   } else {
-    clearForm();
-    document.getElementById('aiFilledNote').style.display = 'none';
-    document.getElementById('btnSaveDeal').textContent = 'Save & Next →';
-    // Auto-read with Gemini if key is present
-    if (geminiApiKey) readWithGemini(files[currentIndex].file);
+    statusEl.textContent = '\u2713 All ' + total + ' screenshots read';
   }
 }
 
-function navigate(dir) {
-  loadScreenshot(currentIndex + dir);
-}
-
 // =====================================================================
-// FORM
+// READ A SINGLE SCREENSHOT WITH AI
 // =====================================================================
-function clearForm() {
-  ['fSupplier','fTitle','fBookStart','fBookEnd','fTravelStart','fTravelEnd','fDescription'].forEach(id => {
-    document.getElementById(id).value = '';
-  });
-  document.getElementById('fExclusive').checked = false;
-  document.getElementById('fSupplierId').value = '';
-  document.getElementById('fSupplierId').className = 'id-manual';
-  document.getElementById('idIndicator').textContent = '';
-  document.getElementById('idIndicator').className = 'id-indicator';
-}
+async function readDealFromScreenshot(fileObj) {
+  try {
+    const buffer = await fileObj.arrayBuffer();
+    const bytes  = new Uint8Array(buffer);
+    let binary = '';
+    for (let i = 0; i < bytes.byteLength; i++) binary += String.fromCharCode(bytes[i]);
+    const base64   = btoa(binary);
+    const mimeType = fileObj.type || 'image/png';
 
-function fillForm(deal) {
-  document.getElementById('fSupplier').value = deal.supplier_name || '';
-  document.getElementById('fTitle').value = deal.deal_title || '';
-  document.getElementById('fBookStart').value = deal.booking_start || '';
-  document.getElementById('fBookEnd').value = deal.booking_end || '';
-  document.getElementById('fTravelStart').value = deal.travel_start || '';
-  document.getElementById('fTravelEnd').value = deal.travel_end || '';
-  document.getElementById('fDescription').value = deal.description || '';
-  document.getElementById('fExclusive').checked = !!deal.exclusive_to_fora;
-  setIdDisplay(deal.supplier_id, deal.supplier_name);
+    const prompt = `Extract hotel deal information from this screenshot. Return ONLY a JSON object \u2014 no markdown, no code fences, no other text:
+{
+  "hotel_name": "full hotel or property name",
+  "deal_title": "standardised title: (1) Any free/complimentary night offer (Stay 3 Pay 2, 4th Night Complimentary, Book 2 Get 1 Free, Every Third Night Free, etc.) \u2192 'Xth Night Free' where X = number of the free night, e.g. Stay 3 Pay 2 = 3rd Night Free; 4th Night Complimentary = 4th Night Free. (2) Percentage discounts \u2192 'X% Off [short qualifier]'. (3) All other titles: concise title case, numerals over words.",
+  "booking_start": "booking window start date (e.g. 'Jan 15, 2026' or 'Now')",
+  "booking_end": "booking window end date (e.g. 'Sep 30, 2026')",
+  "travel_start": "travel window start date",
+  "travel_end": "travel window end date",
+  "description": "1\u20132 sentences summarising the offer benefits only (discounts, complimentary nights, inclusions). Do NOT include booking instructions.",
+  "exclusive_to_fora": false
 }
+Set exclusive_to_fora to true only if the screenshot explicitly says 'Exclusive to Fora'. Use empty string for any field not visible.`;
 
-function onSupplierInput(name) {
-  const id = findSupplierId(name);
-  setIdDisplay(id, name);
-}
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + geminiApiKey
+      },
+      body: JSON.stringify({
+        model: 'meta-llama/llama-4-scout-17b-16e-instruct',
+        temperature: 0.1,
+        max_tokens: 512,
+        messages: [{
+          role: 'user',
+          content: [
+            { type: 'image_url', image_url: { url: 'data:' + mimeType + ';base64,' + base64 } },
+            { type: 'text', text: prompt }
+          ]
+        }]
+      })
+    });
 
-function setIdDisplay(id, name) {
-  const indicator = document.getElementById('idIndicator');
-  const manual = document.getElementById('fSupplierId');
-  if (id) {
-    indicator.textContent = '✓ Supplier ID found';
-    indicator.className = 'id-indicator found';
-    manual.value = id;
-    manual.className = 'id-manual';
-  } else if (name && name.length > 3) {
-    indicator.textContent = '⚠ ID not in map — paste it below (or leave blank)';
-    indicator.className = 'id-indicator missing';
-    manual.className = 'id-manual show';
-  } else {
-    indicator.textContent = '';
-    indicator.className = 'id-indicator';
-    manual.className = 'id-manual';
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error?.message || 'API error ' + res.status);
+    }
+
+    const data = await res.json();
+    const text = data.choices?.[0]?.message?.content || '';
+    const jsonMatch = text.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) throw new Error('No JSON in response');
+    const deal = JSON.parse(jsonMatch[0]);
+    const hotelName = deal.hotel_name || '';
+
+    return {
+      supplier_name: hotelName,
+      deal_title:    deal.deal_title    || '',
+      booking_start: deal.booking_start || '',
+      booking_end:   deal.booking_end   || '',
+      travel_start:  deal.travel_start  || '',
+      travel_end:    deal.travel_end    || '',
+      description:   deal.description   || '',
+      exclusive_to_fora: !!deal.exclusive_to_fora,
+      supplier_id: findSupplierId(hotelName),
+    };
+  } catch (err) {
+    return {
+      supplier_name: '', deal_title: '',
+      booking_start: '', booking_end: '',
+      travel_start:  '', travel_end:  '',
+      description:   '', exclusive_to_fora: false, supplier_id: null,
+      _error: err.message,
+    };
   }
 }
 
-function onManualId(val) {
-  const indicator = document.getElementById('idIndicator');
-  if (val.trim().length === 36) {
-    indicator.textContent = '✓ ID entered';
-    indicator.className = 'id-indicator found';
-    // Remember it for next time
-    const name = normalise(document.getElementById('fSupplier').value);
+// =====================================================================
+// REVIEW TABLE
+// =====================================================================
+function renderReviewTable() {
+  const section = document.getElementById('reviewSection');
+  section.style.display = 'block';
+  section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.getElementById('step4num').classList.remove('done');
+  document.getElementById('reviewSubtitle').textContent = savedDeals.length + ' deal' + (savedDeals.length !== 1 ? 's' : '');
+
+  const rows = savedDeals.map((d, i) => {
+    const bookVal = [d.booking_start, d.booking_end].filter(Boolean).join(' \u2013 ');
+    const travVal = [d.travel_start,  d.travel_end ].filter(Boolean).join(' \u2013 ');
+    const errHtml = d._error ? '<div class="row-error">\u26a0 ' + escHtml(d._error) + '</div>' : '';
+    return '<tr id="row-' + i + '">' +
+      '<td class="row-num">' + (i + 1) + '</td>' +
+      '<td>' + errHtml + '<input class="rt-input" value="' + escAttr(d.supplier_name) + '" onchange="updateDealName(' + i + ',this.value)"></td>' +
+      '<td><input class="rt-input" value="' + escAttr(d.deal_title) + '" onchange="updateDeal(' + i + ',\'deal_title\',this.value)"></td>' +
+      '<td><input class="rt-input" value="' + escAttr(bookVal) + '" onchange="updateWindow(' + i + ',\'booking\',this.value)" placeholder="Start \u2013 End"></td>' +
+      '<td><input class="rt-input" value="' + escAttr(travVal) + '" onchange="updateWindow(' + i + ',\'travel\',this.value)" placeholder="Start \u2013 End"></td>' +
+      '<td><textarea class="rt-textarea" onchange="updateDeal(' + i + ',\'description\',this.value)">' + escHtml(d.description) + '</textarea></td>' +
+      '<td style="text-align:center;"><input type="checkbox"' + (d.exclusive_to_fora ? ' checked' : '') + ' onchange="updateDeal(' + i + ',\'exclusive_to_fora\',this.checked)"></td>' +
+      '<td id="id-cell-' + i + '">' + makeIdCell(i, d) + '</td>' +
+      '</tr>';
+  }).join('');
+
+  document.getElementById('reviewTableBody').innerHTML = rows;
+  refreshMissingNote();
+}
+
+function makeIdCell(i, deal) {
+  if (deal.supplier_id) {
+    return '<div class="cell-id-ok">\u2713 Found</div>';
+  }
+  if (!deal.supplier_name || deal.supplier_name.length < 3) {
+    return '<div style="color:var(--taupe);font-size:0.75rem;">\u2014</div>';
+  }
+  return '<div>' +
+    '<div class="cell-id-missing-label">Not found</div>' +
+    '<div class="id-action-row">' +
+      '<button class="btn-small" onclick="copyHotelName(' + i + ')">Copy name</button>' +
+      '<a class="btn-small" href="https://advisor.fora.travel/partners/hotels" target="_blank" style="text-decoration:none;">Search \u2192</a>' +
+    '</div>' +
+    '<input class="id-paste-input" placeholder="Paste UUID" oninput="onPasteIdRow(' + i + ',this.value)">' +
+    '</div>';
+}
+
+function refreshMissingNote() {
+  const missing = savedDeals.filter(d => !d.supplier_id && d.supplier_name && d.supplier_name.length > 2).length;
+  document.getElementById('reviewMissingNote').innerHTML = missing > 0
+    ? '<p class="review-missing-note">\u26a0 ' + missing + ' hotel' + (missing > 1 ? 's' : '') + ' missing a supplier ID \u2014 paste UUIDs in the highlighted cells, or leave blank (links will be disabled).</p>'
+    : '';
+}
+
+function updateDeal(i, field, value) {
+  if (savedDeals[i]) savedDeals[i][field] = value;
+}
+
+function updateDealName(i, value) {
+  if (!savedDeals[i]) return;
+  savedDeals[i].supplier_name = value;
+  const found = findSupplierId(value);
+  savedDeals[i].supplier_id = found;
+  document.getElementById('id-cell-' + i).innerHTML = makeIdCell(i, savedDeals[i]);
+  refreshMissingNote();
+}
+
+function updateWindow(i, type, val) {
+  if (!savedDeals[i]) return;
+  // Split on en dash, em dash, or " - "
+  const parts = val.split(/\s*[\u2013\u2014]\s*|\s+-\s+/);
+  const start = (parts[0] || '').trim();
+  const end   = (parts.slice(1).join('\u2013') || '').trim();
+  if (type === 'booking') {
+    savedDeals[i].booking_start = start;
+    savedDeals[i].booking_end   = end;
+  } else {
+    savedDeals[i].travel_start = start;
+    savedDeals[i].travel_end   = end;
+  }
+}
+
+function onPasteIdRow(i, val) {
+  const uuid = val.trim();
+  if (!savedDeals[i]) return;
+  savedDeals[i].supplier_id = uuid || null;
+  if (uuid.length === 36) {
+    const name = normalise(savedDeals[i].supplier_name);
     if (name) {
-      supplierMap[name] = val.trim();
-      // Save only entries not already in DEFAULT_MAP (keys are normalised)
-      const defaultKeys = new Set(Object.keys(DEFAULT_MAP).map(normalise));
+      supplierMap[name] = uuid;
+      const defaultKeys = new Set(Object.keys(DEFAULT_MAP).map(k => normalise(k)));
       const extra = Object.fromEntries(
         Object.entries(supplierMap).filter(([k]) => !defaultKeys.has(k))
       );
       localStorage.setItem('fora_supplier_map', JSON.stringify(extra));
     }
+    document.getElementById('id-cell-' + i).innerHTML = '<div class="cell-id-ok">\u2713 Saved</div>';
+    refreshMissingNote();
   }
 }
 
-function saveDeal() {
-  const supplier = document.getElementById('fSupplier').value.trim();
-  if (!supplier) { document.getElementById('fSupplier').focus(); return; }
-
-  const supplierId = document.getElementById('fSupplierId').value.trim() || findSupplierId(supplier) || null;
-
-  const deal = {
-    _fileIndex: currentIndex,
-    supplier_name: supplier,
-    supplier_id: supplierId,
-    deal_title: document.getElementById('fTitle').value.trim(),
-    booking_start: document.getElementById('fBookStart').value.trim(),
-    booking_end: document.getElementById('fBookEnd').value.trim(),
-    travel_start: document.getElementById('fTravelStart').value.trim(),
-    travel_end: document.getElementById('fTravelEnd').value.trim(),
-    description: document.getElementById('fDescription').value.trim(),
-    exclusive_to_fora: document.getElementById('fExclusive').checked,
-  };
-
-  // Replace if already saved for this screenshot
-  const idx = savedDeals.findIndex(d => d._fileIndex === currentIndex);
-  if (idx >= 0) savedDeals[idx] = deal; else savedDeals.push(deal);
-
-  updateProgress();
-
-  const btn = document.getElementById('btnSaveDeal');
-  btn.textContent = '✓ Saved!';
-  btn.classList.add('saved');
-  setTimeout(() => {
-    btn.classList.remove('saved');
-    // Auto-advance if not on last
-    if (currentIndex < files.length - 1) {
-      loadScreenshot(currentIndex + 1);
-    } else {
-      btn.textContent = 'Update';
-    }
-  }, 600);
-}
-
-function skipCurrent() {
-  if (currentIndex < files.length - 1) loadScreenshot(currentIndex + 1);
-}
-
-function updateProgress() {
-  const n = savedDeals.length;
-  const total = files.length;
-  document.getElementById('progressText').textContent = `${n} saved`;
-  document.getElementById('progressFill').style.width = `${Math.round(n / total * 100)}%`;
-
-  const summary = document.getElementById('dealsSummary');
-  summary.innerHTML = savedDeals.map((d, i) => `
-    <span class="deal-chip ${d.supplier_id ? '' : 'no-id'}" onclick="loadScreenshot(${d._fileIndex})" title="Click to edit">
-      ${escHtml(d.supplier_name.length > 28 ? d.supplier_name.slice(0, 27) + '…' : d.supplier_name)}
-      <button class="deal-chip-remove" onclick="removeSaved(event,${i})">×</button>
-    </span>
-  `).join('');
-
-  if (n > 0) document.getElementById('generateSection').style.display = 'block';
-}
-
-function removeSaved(e, i) {
-  e.stopPropagation();
-  savedDeals.splice(i, 1);
-  updateProgress();
-  if (!savedDeals.length) document.getElementById('generateSection').style.display = 'none';
+async function copyHotelName(i) {
+  const name = savedDeals[i]?.supplier_name || '';
+  try { await navigator.clipboard.writeText(name); } catch { /* silent */ }
 }
 
 // =====================================================================
@@ -1065,13 +671,10 @@ function normalise(name) {
 function findSupplierId(name) {
   const n = normalise(name);
   if (!n) return null;
-  // Exact match (keys already normalised)
   if (supplierMap[n]) return supplierMap[n];
-  // Contains match
   for (const [nk, v] of Object.entries(supplierMap)) {
     if (n.includes(nk) || nk.includes(n)) return v;
   }
-  // Word overlap (2+ significant words)
   const nw = new Set(n.split(' ').filter(w => w.length > 3));
   let best = 0, bestId = null;
   for (const [nk, v] of Object.entries(supplierMap)) {
@@ -1085,64 +688,64 @@ function findSupplierId(name) {
 // GENERATE POST
 // =====================================================================
 function generatePost() {
-  const title   = document.getElementById('postTitle').value.trim() || 'Deals and Updates';
-  const byline  = document.getElementById('postByline').value.trim();
+  const title    = document.getElementById('postTitle').value.trim() || 'Deals and Updates';
+  const byline   = document.getElementById('postByline').value.trim();
   const introRaw = document.getElementById('postIntro').value.trim();
 
   const introHtml = introRaw.split('\n\n')
-    .map(p => `<p>${escHtml(p.replace(/\n/g, '<br>'))}</p>`)
+    .map(p => '<p>' + escHtml(p.replace(/\n/g, '<br>')) + '</p>')
     .join('\n');
 
   const dealsHtml = savedDeals.map(deal => {
     const id   = (deal.supplier_id || '').trim();
-    const url  = id ? `https://advisor.fora.travel/partners/hotels/${id}` : '#';
-    const link = `<a href="${url}">${escHtml(deal.supplier_name)}</a>`;
-    const exc  = deal.exclusive_to_fora ? ' ⭐ Exclusive to Fora' : '';
-    const dt   = deal.deal_title ? `${escHtml(deal.deal_title)} at ` : '';
+    const url  = id ? 'https://advisor.fora.travel/partners/hotels/' + id : '#';
+    const link = '<a href="' + url + '">' + escHtml(deal.supplier_name) + '</a>';
+    const exc  = deal.exclusive_to_fora ? ' \u2b50 Exclusive to Fora' : '';
+    const dt   = deal.deal_title ? escHtml(deal.deal_title) + ' at ' : '';
     const bs   = escHtml(smartStart(deal.booking_start));
-    const be   = deal.booking_end ? ` &ndash; ${escHtml(deal.booking_end)}` : '';
+    const be   = deal.booking_end ? ' &ndash; ' + escHtml(deal.booking_end) : '';
     const ts   = escHtml(smartStart(deal.travel_start));
-    const te   = deal.travel_end ? ` &ndash; ${escHtml(deal.travel_end)}` : '';
+    const te   = deal.travel_end ? ' &ndash; ' + escHtml(deal.travel_end) : '';
     const desc = escHtml(deal.description || '');
-    return `<div class="deal-entry">
-  <p><strong>${dt}${link}</strong>${exc}</p>
-  <ul>
-    <li><strong>Booking Window:</strong> ${bs}${be}</li>
-    <li><strong>Travel Window:</strong> ${ts}${te}</li>
-    <li><strong>More Info:</strong> ${desc}</li>
-  </ul>
-</div>`;
+    return '<div class="deal-entry">\n' +
+      '  <p><strong>' + dt + link + '</strong>' + exc + '</p>\n' +
+      '  <ul>\n' +
+      '    <li><strong>Booking Window:</strong> ' + bs + be + '</li>\n' +
+      '    <li><strong>Travel Window:</strong> ' + ts + te + '</li>\n' +
+      '    <li><strong>More Info:</strong> ' + desc + '</li>\n' +
+      '  </ul>\n' +
+      '</div>';
   }).join('\n');
 
-  const html = `<h1>${escHtml(title)}</h1>
-<p class="byline">${escHtml(byline)}</p>
-${introHtml}
-${dealsHtml}`;
+  const html = '<h1>' + escHtml(title) + '</h1>\n' +
+    '<p class="byline">' + escHtml(byline) + '</p>\n' +
+    introHtml + '\n' + dealsHtml;
 
   document.getElementById('postPreview').innerHTML = html;
   document.getElementById('outputSection').style.display = 'block';
+  document.getElementById('step4num').classList.add('done');
   document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // =====================================================================
-// COPY / DOWNLOAD
+// COPY / DOWNLOAD / RESTART
 // =====================================================================
 async function copyPost() {
   const preview = document.getElementById('postPreview');
   const btn = document.getElementById('btnCopy');
   try {
-    const htmlBlob = new Blob([preview.innerHTML], { type: 'text/html' });
-    const textBlob = new Blob([preview.innerText], { type: 'text/plain' });
-    await navigator.clipboard.write([new ClipboardItem({ 'text/html': htmlBlob, 'text/plain': textBlob })]);
+    await navigator.clipboard.write([new ClipboardItem({
+      'text/html':  new Blob([preview.innerHTML], { type: 'text/html' }),
+      'text/plain': new Blob([preview.innerText],  { type: 'text/plain' })
+    })]);
   } catch {
     const range = document.createRange();
     range.selectNodeContents(preview);
     const sel = window.getSelection();
-    sel.removeAllRanges();
-    sel.addRange(range);
+    sel.removeAllRanges(); sel.addRange(range);
     document.execCommand('copy');
   }
-  btn.textContent = '✓ Copied!';
+  btn.textContent = '\u2713 Copied!';
   btn.classList.add('copied');
   setTimeout(() => { btn.textContent = 'Copy to Clipboard'; btn.classList.remove('copied'); }, 2500);
 }
@@ -1151,25 +754,29 @@ function downloadPost() {
   const title = document.getElementById('postTitle').value.trim() || 'forum-post';
   const slug  = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-');
   const body  = document.getElementById('postPreview').innerHTML;
-  const page  = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>${escHtml(title)}</title>
-<style>body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:15px;line-height:1.6;color:#1a1a1a;max-width:660px;margin:40px auto;padding:0 24px 60px}h1{font-size:1.2em;margin-bottom:2px}.byline{color:#888;font-size:.85em;margin:0 0 20px}p{margin:0 0 10px}.deal-entry{margin-bottom:20px}.deal-entry p{margin-bottom:3px}ul{margin:0;padding-left:20px}li{margin-bottom:1px}a{color:#1a1a1a}</style>
-</head><body>${body}</body></html>`;
+  const page  = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>' + escHtml(title) + '</title>' +
+    '<style>body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:15px;line-height:1.6;color:#1a1a1a;max-width:660px;margin:40px auto;padding:0 24px 60px}' +
+    'h1{font-size:1.2em;margin-bottom:2px}.byline{color:#888;font-size:.85em;margin:0 0 20px}p{margin:0 0 10px}' +
+    '.deal-entry{margin-bottom:20px}.deal-entry p{margin-bottom:3px}ul{margin:0;padding-left:20px}li{margin-bottom:1px}a{color:#1a1a1a}</style>' +
+    '</head><body>' + body + '</body></html>';
   const a = Object.assign(document.createElement('a'), {
     href: URL.createObjectURL(new Blob([page], { type: 'text/html' })),
-    download: `${slug}.html`
+    download: slug + '.html'
   });
   a.click();
   URL.revokeObjectURL(a.href);
 }
 
 function restart() {
-  files = []; savedDeals = []; currentIndex = 0;
-  document.getElementById('folderStatus').textContent = 'No folder selected — use Chrome or Edge';
+  files = []; savedDeals = [];
+  document.getElementById('folderStatus').textContent = 'No folder selected \u2014 use Chrome or Edge';
   document.getElementById('folderStatus').className = 'folder-status';
   document.getElementById('folderStatusHeader').textContent = '';
   document.getElementById('step1num').classList.remove('done');
-  document.getElementById('dealEntrySection').style.display = 'none';
-  document.getElementById('generateSection').style.display = 'none';
+  document.getElementById('step3num').classList.remove('done');
+  document.getElementById('step4num').classList.remove('done');
+  document.getElementById('batchSection').style.display = 'none';
+  document.getElementById('reviewSection').style.display = 'none';
   document.getElementById('outputSection').style.display = 'none';
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -1190,40 +797,35 @@ function saveCurrentPost() {
   const title = document.getElementById('postTitle').value.trim() || 'Untitled Post';
   const html  = document.getElementById('postPreview').innerHTML;
   if (!html) return;
-
   const posts = getSavedPosts();
   posts.unshift({
-    id: Date.now().toString(),
-    title,
+    id: Date.now().toString(), title,
     date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
     html
   });
   persistSavedPosts(posts);
   renderSavedPosts();
-
   const btn = document.getElementById('btnSavePost');
-  btn.textContent = '✓ Saved!';
+  btn.textContent = '\u2713 Saved!';
   setTimeout(() => { btn.textContent = 'Save Post'; }, 2000);
 }
 
 function renderSavedPosts() {
-  const posts = getSavedPosts();
+  const posts   = getSavedPosts();
   const section = document.getElementById('savedPostsSection');
   const list    = document.getElementById('savedPostsList');
-
   if (!posts.length) { section.style.display = 'none'; return; }
   section.style.display = 'block';
-
-  list.innerHTML = posts.map(p => `
-    <div class="saved-post-row" id="savedrow-${p.id}">
-      <span class="saved-post-title">${escHtml(p.title)}</span>
-      <span class="saved-post-date">${escHtml(p.date)}</span>
-      <div class="saved-post-actions">
-        <button class="btn-saved-action open" onclick="openSavedPost('${p.id}')">Open</button>
-        <button class="btn-saved-action btn-saved-delete" onclick="deleteSavedPost('${p.id}')">Delete</button>
-      </div>
-    </div>
-  `).join('');
+  list.innerHTML = posts.map(p =>
+    '<div class="saved-post-row" id="savedrow-' + p.id + '">' +
+      '<span class="saved-post-title">' + escHtml(p.title) + '</span>' +
+      '<span class="saved-post-date">' + escHtml(p.date) + '</span>' +
+      '<div class="saved-post-actions">' +
+        '<button class="btn-saved-action open" onclick="openSavedPost(\'' + p.id + '\')">Open</button>' +
+        '<button class="btn-saved-action btn-saved-delete" onclick="deleteSavedPost(\'' + p.id + '\')">Delete</button>' +
+      '</div>' +
+    '</div>'
+  ).join('');
 }
 
 function openSavedPost(id) {
@@ -1235,8 +837,7 @@ function openSavedPost(id) {
 }
 
 function deleteSavedPost(id) {
-  const posts = getSavedPosts().filter(p => p.id !== id);
-  persistSavedPosts(posts);
+  persistSavedPosts(getSavedPosts().filter(p => p.id !== id));
   renderSavedPosts();
 }
 
@@ -1260,15 +861,18 @@ async function copyModalPost() {
     sel.removeAllRanges(); sel.addRange(range);
     document.execCommand('copy');
   }
-  btn.textContent = '✓ Copied!';
+  btn.textContent = '\u2713 Copied!';
   btn.classList.add('copied');
   setTimeout(() => { btn.textContent = 'Copy to Clipboard'; btn.classList.remove('copied'); }, 2500);
 }
 
+// =====================================================================
+// UTILITIES
+// =====================================================================
 function smartStart(dateStr) {
   if (!dateStr || dateStr.toLowerCase() === 'now') return 'Now';
   const parsed = new Date(dateStr);
-  if (isNaN(parsed.getTime())) return dateStr; // unparseable — leave as-is
+  if (isNaN(parsed.getTime())) return dateStr;
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   return parsed < today ? 'Now' : dateStr;
@@ -1278,18 +882,21 @@ function escHtml(s) {
   return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
+function escAttr(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
 // =====================================================================
-// GEMINI API KEY
+// API KEY
 // =====================================================================
 function saveApiKey() {
   const key = document.getElementById('geminiKey').value.trim();
   if (!key) return;
   geminiApiKey = key;
   localStorage.setItem('fora_gemini_key', key);
-  document.getElementById('apiKeyStatus').textContent = '✓ Key saved — screenshots will be auto-read';
+  document.getElementById('apiKeyStatus').textContent = '\u2713 Key saved \u2014 screenshots will be auto-read';
   document.getElementById('apiKeyStatus').className = 'api-key-status ok';
 }
-
 
 // =====================================================================
 // INTRO TEXT GENERATION
@@ -1297,143 +904,33 @@ function saveApiKey() {
 async function generateIntroText(month) {
   const statusEl = document.getElementById('introAiStatus');
   const textarea = document.getElementById('postIntro');
-  statusEl.textContent = '— generating…';
-
+  statusEl.textContent = '\u2014 generating\u2026';
   try {
-    const res = await fetch(
-      'https://api.groq.com/openai/v1/chat/completions',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${geminiApiKey}`
-        },
-        body: JSON.stringify({
-          model: 'meta-llama/llama-4-scout-17b-16e-instruct',
-          temperature: 1.0,
-          max_tokens: 120,
-          messages: [{
-            role: 'user',
-            content: `Write a short, friendly intro for a ${month} hotel deals post on an internal forum for travel advisors at Fora Travel.
-
-It must:
-- Open with a greeting to advisors (vary it — don't always say "Hi advisors")
-- Mention there are new or great deals this month (vary the wording)
-- Tell them all deals can be found on the Deals tab in Portal with full details, booking instructions, and T&Cs
-- End with a warm send-off like "Happy booking!" (vary this too)
-
-Keep it to 3 short sentences. Plain text only, no quotes, no markdown. Do not include the post title.`
-          }]
-        })
-      }
-    );
-
-    if (!res.ok) throw new Error(`API error ${res.status}`);
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + geminiApiKey
+      },
+      body: JSON.stringify({
+        model: 'meta-llama/llama-4-scout-17b-16e-instruct',
+        temperature: 1.0,
+        max_tokens: 120,
+        messages: [{
+          role: 'user',
+          content: 'Write a short, friendly intro for a ' + month + ' hotel deals post on an internal forum for travel advisors at Fora Travel.\n\nIt must:\n- Open with a greeting to advisors (vary it \u2014 don\'t always say "Hi advisors")\n- Mention there are new or great deals this month (vary the wording)\n- Tell them all deals can be found on the Deals tab in Portal with full details, booking instructions, and T&Cs\n- End with a warm send-off like "Happy booking!" (vary this too)\n\nKeep it to 3 short sentences. Plain text only, no quotes, no markdown. Do not include the post title.'
+        }]
+      })
+    });
+    if (!res.ok) throw new Error('API error ' + res.status);
     const data = await res.json();
     const text = (data.choices?.[0]?.message?.content || '').trim();
     if (text) {
       textarea.value = text;
-      statusEl.textContent = '— AI generated';
+      statusEl.textContent = '\u2014 AI generated';
       setTimeout(() => { statusEl.textContent = ''; }, 3000);
     }
-  } catch {
-    statusEl.textContent = '';
-  }
-}
-
-// =====================================================================
-// GEMINI SCREENSHOT READING
-// =====================================================================
-async function readWithGemini(fileObj) {
-  if (!geminiApiKey) return;
-
-  // Show loading spinner
-  document.getElementById('aiLoading').classList.add('on');
-  document.getElementById('aiFilledNote').style.display = 'none';
-
-  try {
-    // Convert image to base64
-    const buffer = await fileObj.arrayBuffer();
-    const bytes = new Uint8Array(buffer);
-    let binary = '';
-    for (let i = 0; i < bytes.byteLength; i++) binary += String.fromCharCode(bytes[i]);
-    const base64 = btoa(binary);
-    const mimeType = fileObj.type || 'image/png';
-
-    const prompt = `Extract hotel deal information from this screenshot. Return ONLY a JSON object — no markdown, no code fences, no other text:
-{
-  "hotel_name": "full hotel or property name",
-  "deal_title": "the deal title, standardised using these rules: (1) Any offer involving a free or complimentary night — including 'Stay 3 Pay 2', '4th Night Complimentary', 'Book 2 Get 1 Free', 'Every Third Night Free' etc. — should all become 'Xth Night Free' where X is the number of the free night, e.g. 'Stay 3 Pay 2' = 3rd night is free = '3rd Night Free'; '4th Night Complimentary' = '4th Night Free'. (2) Percentage discounts → 'X% Off' followed by a short qualifier if needed. (3) All other titles: keep concise, use title case, prefer numerals over words.",
-  "booking_start": "booking window start (e.g. 'Jan 15' or 'Now')",
-  "booking_end": "booking window end (e.g. 'Sep 30, 2026')",
-  "travel_start": "travel window start",
-  "travel_end": "travel window end",
-  "description": "1–2 sentence summary of the offer benefits only (e.g. discounts, complimentary nights, inclusions). Do NOT include booking instructions, how to book, or references to where to find the deal.",
-  "exclusive_to_fora": false
-}
-Set exclusive_to_fora to true only if the screenshot says 'Exclusive to Fora'. Use empty string for any field not visible.`;
-
-    const res = await fetch(
-      'https://api.groq.com/openai/v1/chat/completions',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${geminiApiKey}`
-        },
-        body: JSON.stringify({
-          model: 'meta-llama/llama-4-scout-17b-16e-instruct',
-          temperature: 0.1,
-          max_tokens: 512,
-          messages: [{
-            role: 'user',
-            content: [
-              { type: 'image_url', image_url: { url: `data:${mimeType};base64,${base64}` } },
-              { type: 'text', text: prompt }
-            ]
-          }]
-        })
-      }
-    );
-
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err.error?.message || `API error ${res.status} — check your key at console.groq.com`);
-    }
-
-    const data = await res.json();
-    const text = data.choices?.[0]?.message?.content || '';
-    const jsonMatch = text.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) throw new Error('No JSON returned');
-    const deal = JSON.parse(jsonMatch[0]);
-
-    // Fill form fields
-    document.getElementById('fSupplier').value     = deal.hotel_name    || '';
-    document.getElementById('fTitle').value        = deal.deal_title    || '';
-    document.getElementById('fBookStart').value    = deal.booking_start || '';
-    document.getElementById('fBookEnd').value      = deal.booking_end   || '';
-    document.getElementById('fTravelStart').value  = deal.travel_start  || '';
-    document.getElementById('fTravelEnd').value    = deal.travel_end    || '';
-    document.getElementById('fDescription').value  = deal.description   || '';
-    document.getElementById('fExclusive').checked  = !!deal.exclusive_to_fora;
-
-    // Trigger supplier ID lookup
-    onSupplierInput(deal.hotel_name || '');
-
-    // Show success note
-    const note = document.getElementById('aiFilledNote');
-    note.textContent = '✓ Auto-filled — review and save';
-    note.className = 'ai-filled-note';
-    note.style.display = 'block';
-
-  } catch (err) {
-    const note = document.getElementById('aiFilledNote');
-    note.textContent = `⚠ AI read failed: ${err.message}`;
-    note.className = 'ai-filled-note error';
-    note.style.display = 'block';
-  } finally {
-    document.getElementById('aiLoading').classList.remove('on');
-  }
+  } catch { statusEl.textContent = ''; }
 }
 
 init();
