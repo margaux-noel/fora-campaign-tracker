@@ -795,8 +795,19 @@ let supplierMap = {};
 let geminiApiKey = '';
 
 function init() {
-  const extra = localStorage.getItem('fora_supplier_map');
-  supplierMap = extra ? { ...DEFAULT_MAP, ...JSON.parse(extra) } : { ...DEFAULT_MAP };
+  // Build supplierMap with all keys pre-normalised so lookups are encoding-safe
+  supplierMap = {};
+  for (const [k, v] of Object.entries(DEFAULT_MAP)) {
+    supplierMap[normalise(k)] = v;
+  }
+  try {
+    const extra = localStorage.getItem('fora_supplier_map');
+    if (extra) {
+      for (const [k, v] of Object.entries(JSON.parse(extra))) {
+        supplierMap[normalise(k)] = v;
+      }
+    }
+  } catch { localStorage.removeItem('fora_supplier_map'); }
 
   // Auto-populate title and byline with current month
   const now = new Date();
@@ -959,8 +970,10 @@ function onManualId(val) {
     const name = normalise(document.getElementById('fSupplier').value);
     if (name) {
       supplierMap[name] = val.trim();
+      // Save only entries not already in DEFAULT_MAP (keys are normalised)
+      const defaultKeys = new Set(Object.keys(DEFAULT_MAP).map(normalise));
       const extra = Object.fromEntries(
-        Object.entries(supplierMap).filter(([k]) => !DEFAULT_MAP[k])
+        Object.entries(supplierMap).filter(([k]) => !defaultKeys.has(k))
       );
       localStorage.setItem('fora_supplier_map', JSON.stringify(extra));
     }
@@ -1052,19 +1065,17 @@ function normalise(name) {
 function findSupplierId(name) {
   const n = normalise(name);
   if (!n) return null;
-  // Exact
+  // Exact match (keys already normalised)
   if (supplierMap[n]) return supplierMap[n];
-  // Contains
-  for (const [k, v] of Object.entries(supplierMap)) {
-    const nk = normalise(k);
-    if (n === nk || n.includes(nk) || nk.includes(n)) return v;
+  // Contains match
+  for (const [nk, v] of Object.entries(supplierMap)) {
+    if (n.includes(nk) || nk.includes(n)) return v;
   }
-  // Word overlap (3+ significant words)
+  // Word overlap (2+ significant words)
   const nw = new Set(n.split(' ').filter(w => w.length > 3));
   let best = 0, bestId = null;
-  for (const [k, v] of Object.entries(supplierMap)) {
-    const kw = normalise(k).split(' ').filter(w => w.length > 3);
-    const overlap = kw.filter(w => nw.has(w)).length;
+  for (const [nk, v] of Object.entries(supplierMap)) {
+    const overlap = nk.split(' ').filter(w => w.length > 3 && nw.has(w)).length;
     if (overlap >= 2 && overlap > best) { best = overlap; bestId = v; }
   }
   return bestId;
