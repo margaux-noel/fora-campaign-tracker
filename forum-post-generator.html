@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forum Post Generator | Fora Travel</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .gen-wrap { padding: 32px 48px; max-width: 1200px; }
+
+    /* ── Step cards ── */
+    .step-card {
+      background: var(--white);
+      border: 1px solid var(--tan);
+      margin-bottom: 24px;
+    }
+    .step-card-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--tan);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .step-num {
+      font-family: var(--font-title);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--white);
+      background: var(--taupe);
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-num.done { background: #059669; }
+    .step-card-header h2 {
+      font-family: var(--font-title);
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+    .step-card-header p {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      color: var(--taupe);
+      margin-left: auto;
+    }
+    .step-card-body { padding: 24px; }
+
+    /* ── Folder picker ── */
+    .folder-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .btn-folder {
+      display: flex; align-items: center; gap: 8px;
+      padding: 12px 22px;
+      background: transparent;
+      border: 1px solid var(--tan);
+      font-family: var(--font-title);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      color: var(--black);
+      transition: all 0.2s;
+    }
+    .btn-folder:hover { border-color: var(--black); background: var(--cream); }
+    .folder-status { font-family: var(--font-body); font-size: 0.875rem; color: var(--taupe); }
+    .folder-status.loaded { color: #059669; }
+
+    /* ── Post settings ── */
+    .settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .sg-full { grid-column: 1 / -1; }
+    .settings-grid label {
+      display: block;
+      font-family: var(--font-title);
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--taupe);
+      margin-bottom: 6px;
+    }
+    .settings-grid input, .settings-grid textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--tan);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      background: var(--cream);
+      color: var(--black);
+    }
+    .settings-grid input:focus, .settings-grid textarea:focus { outline: none; border-color: var(--black); }
+    .settings-grid textarea { resize: vertical; min-height: 75px; }
+
+    /* ── Deal entry ── */
+    #dealEntrySection { display: none; }
+
+    .deal-workspace {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* screenshot panel */
+    .screenshot-panel {
+      position: sticky;
+      top: 20px;
+    }
+    .screenshot-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .screenshot-counter {
+      font-family: var(--font-title);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--taupe);
+    }
+    .screenshot-filename {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      color: var(--taupe);
+      font-style: italic;
+      margin-bottom: 8px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .screenshot-img-wrap {
+      border: 1px solid var(--tan);
+      background: #f5f5f5;
+      overflow: hidden;
+      max-height: 70vh;
+    }
+    .screenshot-img-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .nav-btn {
+      padding: 8px 16px;
+      background: transparent;
+      border: 1px solid var(--tan);
+      font-family: var(--font-title);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      color: var(--taupe);
+      transition: all 0.2s;
+    }
+    .nav-btn:hover:not(:disabled) { border-color: var(--black); color: var(--black); }
+    .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+    /* form panel */
+    .form-panel {}
+    .deal-form-title {
+      font-family: var(--font-title);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--taupe);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--tan);
+    }
+    .field-group { margin-bottom: 14px; }
+    .field-group label {
+      display: block;
+      font-family: var(--font-title);
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--taupe);
+      margin-bottom: 5px;
+    }
+    .field-group input, .field-group textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--tan);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      background: var(--cream);
+      color: var(--black);
+    }
+    .field-group input:focus, .field-group textarea:focus { outline: none; border-color: var(--black); }
+    .field-group textarea { resize: vertical; min-height: 65px; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    /* supplier ID indicator */
+    .id-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 5px;
+      font-family: var(--font-title);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .id-indicator.found { color: #059669; }
+    .id-indicator.missing { color: #b45309; }
+    .id-manual {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #f59e0b;
+      background: #fffbeb;
+      font-family: monospace;
+      font-size: 0.75rem;
+      color: var(--black);
+      margin-top: 6px;
+      display: none;
+    }
+    .id-manual.show { display: block; }
+    .id-manual:focus { outline: none; border-color: var(--black); }
+
+    /* exclusive checkbox */
+    .exclusive-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .exclusive-row input[type="checkbox"] { width: 16px; height: 16px; cursor: pointer; }
+    .exclusive-row label {
+      font-family: var(--font-title);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      margin: 0;
+    }
+
+    /* form action buttons */
+    .form-actions { display: flex; gap: 10px; margin-top: 4px; }
+    .btn-skip {
+      padding: 12px 20px;
+      background: transparent;
+      border: 1px solid var(--tan);
+      font-family: var(--font-title);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      color: var(--taupe);
+      transition: all 0.2s;
+    }
+    .btn-skip:hover { border-color: var(--black); color: var(--black); }
+    .btn-save-deal {
+      flex: 1;
+      padding: 12px 20px;
+      background: var(--black);
+      color: var(--cream);
+      border: none;
+      font-family: var(--font-title);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-save-deal:hover { background: var(--olive); }
+    .btn-save-deal.saved { background: #059669; }
+
+    /* progress bar */
+    .progress-bar-wrap {
+      margin-top: 20px;
+      border-top: 1px solid var(--tan);
+      padding-top: 16px;
+    }
+    .progress-label {
+      font-family: var(--font-title);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--taupe);
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .progress-track {
+      height: 4px;
+      background: var(--tan);
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--black);
+      transition: width 0.3s;
+    }
+
+    /* deals summary */
+    .deals-summary {
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .deal-chip {
+      font-family: var(--font-title);
+      font-size: 0.65rem;
+      padding: 4px 12px;
+      background: #ecfdf5;
+      color: #059669;
+      border: 1px solid #bbf7d0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+    .deal-chip.no-id { background: #fff3cd; color: #b45309; border-color: #fde68a; }
+    .deal-chip-remove {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: inherit;
+      padding: 0;
+      font-size: 0.9rem;
+      line-height: 1;
+      opacity: 0.6;
+    }
+    .deal-chip-remove:hover { opacity: 1; }
+
+    /* ── Generate + output ── */
+    #generateSection { display: none; margin-top: 8px; }
+    .btn-generate {
+      width: 100%;
+      padding: 16px;
+      background: var(--black);
+      color: var(--cream);
+      border: none;
+      font-family: var(--font-title);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-generate:hover { background: var(--burgundy); }
+
+    #outputSection { display: none; }
+    .output-actions {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .btn-copy {
+      padding: 14px 28px;
+      background: var(--black);
+      color: var(--cream);
+      border: none;
+      font-family: var(--font-title);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-copy:hover { background: var(--olive); }
+    .btn-copy.copied { background: #059669; }
+    .btn-download {
+      padding: 14px 24px;
+      background: transparent;
+      border: 1px solid var(--tan);
+      font-family: var(--font-title);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      color: var(--black);
+      transition: all 0.2s;
+    }
+    .btn-download:hover { border-color: var(--black); }
+    .btn-restart {
+      margin-left: auto;
+      padding: 14px 24px;
+      background: transparent;
+      border: 1px solid var(--tan);
+      font-family: var(--font-title);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      color: var(--taupe);
+      transition: all 0.2s;
+    }
+    .btn-restart:hover { color: var(--black); border-color: var(--black); }
+    .copy-hint {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      color: var(--taupe);
+      font-style: italic;
+    }
+    .post-preview {
+      background: var(--white);
+      border: 1px solid var(--tan);
+      padding: 32px 36px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #1a1a1a;
+    }
+    .post-preview h1 { font-size: 1.15em; margin: 0 0 4px; }
+    .post-preview .byline { color: #888; font-size: 0.82em; margin: 0 0 20px; }
+    .post-preview p { margin: 0 0 10px; }
+    .post-preview .deal-entry { margin-bottom: 18px; }
+    .post-preview .deal-entry p { margin-bottom: 3px; }
+    .post-preview ul { margin: 0; padding-left: 20px; }
+    .post-preview li { margin-bottom: 1px; }
+    .post-preview a { color: #1a1a1a; }
+
+    .back-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--font-title); font-size: 0.7rem;
+      text-transform: uppercase; letter-spacing: 1px;
+      color: var(--taupe); text-decoration: none; transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--black); }
+
+    /* ── API key setup ── */
+    .api-key-row { margin-bottom: 16px; }
+    .api-key-row label {
+      display: flex; align-items: center; gap: 8px;
+      font-family: var(--font-title); font-size: 0.62rem;
+      text-transform: uppercase; letter-spacing: 1px;
+      color: var(--taupe); margin-bottom: 6px;
+    }
+    .api-key-row label a {
+      font-family: var(--font-title); font-size: 0.6rem;
+      color: var(--burgundy); text-decoration: none; letter-spacing: 0.5px;
+    }
+    .api-key-row label a:hover { text-decoration: underline; }
+    .api-key-input-row { display: flex; gap: 10px; align-items: stretch; }
+    .api-key-input-row input {
+      flex: 1; padding: 10px 12px;
+      border: 1px solid var(--tan); background: var(--cream);
+      font-family: monospace; font-size: 0.8rem; color: var(--black);
+    }
+    .api-key-input-row input:focus { outline: none; border-color: var(--black); }
+    .btn-save-key {
+      padding: 10px 18px; background: var(--black); color: var(--cream); border: none;
+      font-family: var(--font-title); font-size: 0.7rem;
+      text-transform: uppercase; letter-spacing: 1px; cursor: pointer;
+    }
+    .btn-save-key:hover { background: var(--olive); }
+    .api-key-status {
+      margin-top: 6px; font-family: var(--font-body); font-size: 0.78rem;
+    }
+    .api-key-status.ok { color: #059669; }
+    .api-key-status.none { color: var(--taupe); }
+
+    /* ── AI loading overlay ── */
+    .form-panel-wrap { position: relative; }
+    .ai-loading {
+      position: absolute; inset: 0;
+      background: rgba(254,250,245,0.92);
+      display: none; flex-direction: column;
+      align-items: center; justify-content: center; gap: 12px; z-index: 10;
+    }
+    .ai-loading.on { display: flex; }
+    .ai-spinner {
+      width: 28px; height: 28px;
+      border: 2px solid var(--tan); border-top-color: var(--taupe);
+      border-radius: 50%; animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .ai-loading-text {
+      font-family: var(--font-title); font-size: 0.7rem;
+      text-transform: uppercase; letter-spacing: 1.5px; color: var(--taupe);
+    }
+    .ai-filled-note {
+      display: none; margin-bottom: 12px;
+      font-family: var(--font-title); font-size: 0.65rem;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      color: #059669; padding: 8px 10px;
+      background: #ecfdf5; border: 1px solid #bbf7d0;
+    }
+    .ai-filled-note.error { color: #b45309; background: #fff3cd; border-color: #fde68a; }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-left">
+    <img src="../partner-portal/logo.png" alt="Fora" class="header-logo">
+    <div class="header-title">
+      <h1>Forum Post Generator</h1>
+      <p class="tagline">Travel Partners Marketing</p>
+    </div>
+  </div>
+  <div class="header-right">
+    <a href="index.html" class="back-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Campaign Tracker
+    </a>
+  </div>
+</header>
+
+<div class="gen-wrap">
+
+  <!-- Step 1: Select folder -->
+  <div class="step-card">
+    <div class="step-card-header">
+      <span class="step-num" id="step1num">1</span>
+      <h2>Select Screenshots Folder</h2>
+      <p id="folderStatusHeader"></p>
+    </div>
+    <div class="step-card-body">
+
+      <div class="api-key-row">
+        <label>
+          Groq API Key (enables auto-reading screenshots — free, no billing required)
+          <a href="https://console.groq.com/keys" target="_blank">Get free key →</a>
+        </label>
+        <div class="api-key-input-row">
+          <input type="password" id="geminiKey" placeholder="gsk_…" autocomplete="off">
+          <button class="btn-save-key" onclick="saveApiKey()">Save Key</button>
+        </div>
+        <div class="api-key-status none" id="apiKeyStatus">No key saved — screenshots will be filled manually</div>
+      </div>
+
+      <div class="folder-row">
+        <button class="btn-folder" onclick="selectFolder()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+          </svg>
+          Choose Folder
+        </button>
+        <span class="folder-status" id="folderStatus">No folder selected — use Chrome or Edge</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 2: Post settings -->
+  <div class="step-card">
+    <div class="step-card-header">
+      <span class="step-num" id="step2num">2</span>
+      <h2>Post Settings</h2>
+    </div>
+    <div class="step-card-body">
+      <div class="settings-grid">
+        <div>
+          <label>Post Title</label>
+          <input type="text" id="postTitle" value="">
+        </div>
+        <div>
+          <label>Byline</label>
+          <input type="text" id="postByline" value="">
+        </div>
+        <div class="sg-full">
+          <label>Intro Text</label>
+          <textarea id="postIntro">Hi advisors,
+
+Some more great deals coming your way! All deals can be found on the Deals tab in Portal, with additional details, instructions on how to book, and terms & conditions.
+
+Happy booking!</textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 3: Deal entry (shows after folder selected) -->
+  <div class="step-card" id="dealEntrySection">
+    <div class="step-card-header">
+      <span class="step-num" id="step3num">3</span>
+      <h2>Enter Deal Details</h2>
+      <p id="dealEntrySubtitle"></p>
+    </div>
+    <div class="step-card-body">
+
+      <div class="deal-workspace">
+
+        <!-- Left: screenshot -->
+        <div class="screenshot-panel">
+          <div class="screenshot-nav">
+            <button class="nav-btn" id="btnPrev" onclick="navigate(-1)" disabled>← Prev</button>
+            <span class="screenshot-counter" id="screenshotCounter">1 / 1</span>
+            <button class="nav-btn" id="btnNext" onclick="navigate(1)">Next →</button>
+          </div>
+          <div class="screenshot-filename" id="screenshotFilename"></div>
+          <div class="screenshot-img-wrap">
+            <img id="screenshotImg" src="" alt="Deal screenshot">
+          </div>
+        </div>
+
+        <!-- Right: form -->
+        <div class="form-panel form-panel-wrap">
+          <div class="ai-loading" id="aiLoading">
+            <div class="ai-spinner"></div>
+            <div class="ai-loading-text">Reading screenshot with AI…</div>
+          </div>
+          <div class="ai-filled-note" id="aiFilledNote"></div>
+          <div class="deal-form-title">Deal Details</div>
+
+          <div class="field-group">
+            <label>Supplier / Hotel Name</label>
+            <input type="text" id="fSupplier" placeholder="e.g. The Breakers Palm Beach"
+              oninput="onSupplierInput(this.value)" autocomplete="off">
+            <div class="id-indicator" id="idIndicator"></div>
+            <input type="text" id="fSupplierId" class="id-manual"
+              placeholder="Paste supplier UUID here"
+              oninput="onManualId(this.value)">
+          </div>
+
+          <div class="field-group">
+            <label>Deal Title</label>
+            <input type="text" id="fTitle" placeholder="e.g. 4th Night Complimentary">
+          </div>
+
+          <div class="field-group">
+            <label>Booking Window</label>
+            <div class="field-row">
+              <input type="text" id="fBookStart" placeholder="e.g. Now">
+              <input type="text" id="fBookEnd" placeholder="e.g. Apr 19, 2027">
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label>Travel Window</label>
+            <div class="field-row">
+              <input type="text" id="fTravelStart" placeholder="e.g. Jan 3, 2026">
+              <input type="text" id="fTravelEnd" placeholder="e.g. Apr 19, 2027">
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label>More Info (1–2 sentences)</label>
+            <textarea id="fDescription" placeholder="Brief description of the deal offer…"></textarea>
+          </div>
+
+          <div class="exclusive-row">
+            <input type="checkbox" id="fExclusive">
+            <label for="fExclusive">Exclusive to Fora</label>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn-skip" onclick="skipCurrent()">Skip</button>
+            <button class="btn-save-deal" id="btnSaveDeal" onclick="saveDeal()">Save &amp; Next →</button>
+          </div>
+
+          <!-- Progress -->
+          <div class="progress-bar-wrap">
+            <div class="progress-label">
+              <span>Deals saved</span>
+              <span id="progressText">0 saved</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" id="progressFill" style="width:0%"></div>
+            </div>
+            <div class="deals-summary" id="dealsSummary"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Generate button -->
+  <div id="generateSection">
+    <button class="btn-generate" onclick="generatePost()">Generate Post →</button>
+  </div>
+
+  <!-- Output -->
+  <div class="step-card" id="outputSection" style="margin-top:24px;">
+    <div class="step-card-header">
+      <span class="step-num done">✓</span>
+      <h2>Your Circle Post</h2>
+    </div>
+    <div class="step-card-body">
+      <div class="output-actions">
+        <button class="btn-copy" id="btnCopy" onclick="copyPost()">Copy to Clipboard</button>
+        <button class="btn-download" onclick="downloadPost()">Download HTML</button>
+        <span class="copy-hint">Paste directly into Circle — links will be preserved</span>
+        <button class="btn-restart" onclick="restart()">← Start Over</button>
+      </div>
+      <div class="post-preview" id="postPreview"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// =====================================================================
+// SUPPLIER ID MAP  — grows automatically as you add new ones
+// =====================================================================
+const DEFAULT_MAP = {
+  "the breakers palm beach": "2d011958-a085-4f90-bd14-ade99a62eaab",
+  "the st. regis punta mita resort": "dc7ec8ed-037b-441b-8dd2-7ca69e77869b",
+  "st. regis punta mita resort": "dc7ec8ed-037b-441b-8dd2-7ca69e77869b",
+  "the st. regis maldives vommuli resort": "5f677cbc-3235-491e-bcc4-be71a07d1993",
+  "st. regis maldives vommuli resort": "5f677cbc-3235-491e-bcc4-be71a07d1993",
+  "the loren at pink beach": "81f39b1e-da1b-4f59-9b11-1608a6777819",
+  "nihi sumba": "d226a054-df17-406d-8c7a-484f3e8d3fff",
+  "hotel nantipa - a tico beach experience": "df8e9e06-7f87-481b-af86-33aa57da3514",
+  "hotel nantipa a tico beach experience": "df8e9e06-7f87-481b-af86-33aa57da3514",
+  "grand hyatt vail": "11b95b8c-971b-4d5b-8a04-77dc2df9bd5d",
+  "edgewood tahoe resort": "ca32b5bd-fd5d-439c-9098-d736e7892f6e",
+  "equinox hotel new york": "e24d3d93-96b2-426b-98ea-ea7d081feb17",
+  "equinox hotel new york city": "e24d3d93-96b2-426b-98ea-ea7d081feb17",
+  "conrad orlando at evermore": "483f6917-d5fd-4aa7-bd15-9a5df868c8e1",
+  "buahan, a banyan tree escape": "cb880327-844a-44fa-b029-dfff2bc8090c",
+  "buahan a banyan tree escape": "cb880327-844a-44fa-b029-dfff2bc8090c",
+  "zadún, a ritz-carlton reserve, los cabos": "91947c33-9969-44c1-baad-c1476cbc7a70",
+  "zadun a ritz-carlton reserve": "91947c33-9969-44c1-baad-c1476cbc7a70",
+  "naples grande beach resort": "8ef44601-f0a6-4da6-8e01-439c20cf70d0",
+  "the st. regis deer valley": "c48572fe-bc5e-480e-8658-c35d607533df",
+  "st. regis deer valley": "c48572fe-bc5e-480e-8658-c35d607533df",
+};
+
+// =====================================================================
+// STATE
+// =====================================================================
+let files = [];
+let currentIndex = 0;
+let savedDeals = [];
+let supplierMap = {};
+let geminiApiKey = '';
+
+function init() {
+  const extra = localStorage.getItem('fora_supplier_map');
+  supplierMap = extra ? { ...DEFAULT_MAP, ...JSON.parse(extra) } : { ...DEFAULT_MAP };
+
+  // Auto-populate title and byline with current month
+  const now = new Date();
+  const monthFull  = now.toLocaleString('en-US', { month: 'long' });
+  const monthShort = now.toLocaleString('en-US', { month: 'short' });
+  document.getElementById('postTitle').value  = `Early ${monthFull} Deals and Updates`;
+  document.getElementById('postByline').value = `Margaux Woellner · Travel Partnerships @ Fora · ${monthShort}`;
+
+  // Load saved Gemini key
+  const savedKey = localStorage.getItem('fora_gemini_key');
+  if (savedKey) {
+    geminiApiKey = savedKey;
+    document.getElementById('geminiKey').value = savedKey;
+    document.getElementById('apiKeyStatus').textContent = '✓ Key saved — screenshots will be auto-read';
+    document.getElementById('apiKeyStatus').className = 'api-key-status ok';
+  }
+}
+
+// =====================================================================
+// FOLDER SELECTION
+// =====================================================================
+async function selectFolder() {
+  try {
+    const dir = await window.showDirectoryPicker({ mode: 'read' });
+    const raw = [];
+    for await (const [name, handle] of dir.entries()) {
+      if (handle.kind === 'file' && /\.(png|jpg|jpeg)$/i.test(name)) {
+        const file = await handle.getFile();
+        const url  = URL.createObjectURL(file);
+        raw.push({ name, file, url });
+      }
+    }
+    raw.sort((a, b) => a.name.localeCompare(b.name));
+    files = raw;
+
+    if (!files.length) {
+      document.getElementById('folderStatus').textContent = 'No images found in that folder.';
+      return;
+    }
+
+    const n = files.length;
+    document.getElementById('folderStatus').textContent = `✓ ${dir.name}  (${n} image${n !== 1 ? 's' : ''})`;
+    document.getElementById('folderStatus').className = 'folder-status loaded';
+    document.getElementById('folderStatusHeader').textContent = `${n} screenshots`;
+    document.getElementById('step1num').classList.add('done');
+
+    savedDeals = [];
+    currentIndex = 0;
+    showDealEntry();
+    loadScreenshot(0);
+  } catch (e) {
+    if (e.name !== 'AbortError') alert('Could not open folder: ' + e.message);
+  }
+}
+
+function showDealEntry() {
+  document.getElementById('dealEntrySection').style.display = 'block';
+  document.getElementById('dealEntrySection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// =====================================================================
+// SCREENSHOT NAVIGATION
+// =====================================================================
+function loadScreenshot(index) {
+  if (!files.length) return;
+  currentIndex = Math.max(0, Math.min(index, files.length - 1));
+  const f = files[currentIndex];
+
+  document.getElementById('screenshotImg').src = f.url;
+  document.getElementById('screenshotFilename').textContent = f.name;
+  document.getElementById('screenshotCounter').textContent = `${currentIndex + 1} / ${files.length}`;
+  document.getElementById('btnPrev').disabled = currentIndex === 0;
+  document.getElementById('btnNext').disabled = currentIndex === files.length - 1;
+  document.getElementById('dealEntrySubtitle').textContent = `Screenshot ${currentIndex + 1} of ${files.length}`;
+
+  // Check if this screenshot already has a saved deal — if so, pre-fill
+  const existing = savedDeals.find(d => d._fileIndex === currentIndex);
+  if (existing) {
+    fillForm(existing);
+    document.getElementById('aiFilledNote').style.display = 'none';
+    document.getElementById('btnSaveDeal').textContent = 'Update';
+  } else {
+    clearForm();
+    document.getElementById('aiFilledNote').style.display = 'none';
+    document.getElementById('btnSaveDeal').textContent = 'Save & Next →';
+    // Auto-read with Gemini if key is present
+    if (geminiApiKey) readWithGemini(files[currentIndex].file);
+  }
+}
+
+function navigate(dir) {
+  loadScreenshot(currentIndex + dir);
+}
+
+// =====================================================================
+// FORM
+// =====================================================================
+function clearForm() {
+  ['fSupplier','fTitle','fBookStart','fBookEnd','fTravelStart','fTravelEnd','fDescription'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('fExclusive').checked = false;
+  document.getElementById('fSupplierId').value = '';
+  document.getElementById('fSupplierId').className = 'id-manual';
+  document.getElementById('idIndicator').textContent = '';
+  document.getElementById('idIndicator').className = 'id-indicator';
+}
+
+function fillForm(deal) {
+  document.getElementById('fSupplier').value = deal.supplier_name || '';
+  document.getElementById('fTitle').value = deal.deal_title || '';
+  document.getElementById('fBookStart').value = deal.booking_start || '';
+  document.getElementById('fBookEnd').value = deal.booking_end || '';
+  document.getElementById('fTravelStart').value = deal.travel_start || '';
+  document.getElementById('fTravelEnd').value = deal.travel_end || '';
+  document.getElementById('fDescription').value = deal.description || '';
+  document.getElementById('fExclusive').checked = !!deal.exclusive_to_fora;
+  setIdDisplay(deal.supplier_id, deal.supplier_name);
+}
+
+function onSupplierInput(name) {
+  const id = findSupplierId(name);
+  setIdDisplay(id, name);
+}
+
+function setIdDisplay(id, name) {
+  const indicator = document.getElementById('idIndicator');
+  const manual = document.getElementById('fSupplierId');
+  if (id) {
+    indicator.textContent = '✓ Supplier ID found';
+    indicator.className = 'id-indicator found';
+    manual.value = id;
+    manual.className = 'id-manual';
+  } else if (name && name.length > 3) {
+    indicator.textContent = '⚠ ID not in map — paste it below (or leave blank)';
+    indicator.className = 'id-indicator missing';
+    manual.className = 'id-manual show';
+  } else {
+    indicator.textContent = '';
+    indicator.className = 'id-indicator';
+    manual.className = 'id-manual';
+  }
+}
+
+function onManualId(val) {
+  const indicator = document.getElementById('idIndicator');
+  if (val.trim().length === 36) {
+    indicator.textContent = '✓ ID entered';
+    indicator.className = 'id-indicator found';
+    // Remember it for next time
+    const name = normalise(document.getElementById('fSupplier').value);
+    if (name) {
+      supplierMap[name] = val.trim();
+      const extra = Object.fromEntries(
+        Object.entries(supplierMap).filter(([k]) => !DEFAULT_MAP[k])
+      );
+      localStorage.setItem('fora_supplier_map', JSON.stringify(extra));
+    }
+  }
+}
+
+function saveDeal() {
+  const supplier = document.getElementById('fSupplier').value.trim();
+  if (!supplier) { document.getElementById('fSupplier').focus(); return; }
+
+  const supplierId = document.getElementById('fSupplierId').value.trim() || findSupplierId(supplier) || null;
+
+  const deal = {
+    _fileIndex: currentIndex,
+    supplier_name: supplier,
+    supplier_id: supplierId,
+    deal_title: document.getElementById('fTitle').value.trim(),
+    booking_start: document.getElementById('fBookStart').value.trim(),
+    booking_end: document.getElementById('fBookEnd').value.trim(),
+    travel_start: document.getElementById('fTravelStart').value.trim(),
+    travel_end: document.getElementById('fTravelEnd').value.trim(),
+    description: document.getElementById('fDescription').value.trim(),
+    exclusive_to_fora: document.getElementById('fExclusive').checked,
+  };
+
+  // Replace if already saved for this screenshot
+  const idx = savedDeals.findIndex(d => d._fileIndex === currentIndex);
+  if (idx >= 0) savedDeals[idx] = deal; else savedDeals.push(deal);
+
+  updateProgress();
+
+  const btn = document.getElementById('btnSaveDeal');
+  btn.textContent = '✓ Saved!';
+  btn.classList.add('saved');
+  setTimeout(() => {
+    btn.classList.remove('saved');
+    // Auto-advance if not on last
+    if (currentIndex < files.length - 1) {
+      loadScreenshot(currentIndex + 1);
+    } else {
+      btn.textContent = 'Update';
+    }
+  }, 600);
+}
+
+function skipCurrent() {
+  if (currentIndex < files.length - 1) loadScreenshot(currentIndex + 1);
+}
+
+function updateProgress() {
+  const n = savedDeals.length;
+  const total = files.length;
+  document.getElementById('progressText').textContent = `${n} saved`;
+  document.getElementById('progressFill').style.width = `${Math.round(n / total * 100)}%`;
+
+  const summary = document.getElementById('dealsSummary');
+  summary.innerHTML = savedDeals.map((d, i) => `
+    <span class="deal-chip ${d.supplier_id ? '' : 'no-id'}" onclick="loadScreenshot(${d._fileIndex})" title="Click to edit">
+      ${escHtml(d.supplier_name.length > 28 ? d.supplier_name.slice(0, 27) + '…' : d.supplier_name)}
+      <button class="deal-chip-remove" onclick="removeSaved(event,${i})">×</button>
+    </span>
+  `).join('');
+
+  if (n > 0) document.getElementById('generateSection').style.display = 'block';
+}
+
+function removeSaved(e, i) {
+  e.stopPropagation();
+  savedDeals.splice(i, 1);
+  updateProgress();
+  if (!savedDeals.length) document.getElementById('generateSection').style.display = 'none';
+}
+
+// =====================================================================
+// SUPPLIER MATCHING
+// =====================================================================
+function normalise(name) {
+  return (name || '').toLowerCase()
+    .replace(/[áàâä]/g, 'a').replace(/[éèêë]/g, 'e')
+    .replace(/[íìîï]/g, 'i').replace(/[óòôö]/g, 'o')
+    .replace(/[úùûü]/g, 'u').replace(/[ñ]/g, 'n')
+    .replace(/[,\.–—]/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+function findSupplierId(name) {
+  const n = normalise(name);
+  if (!n) return null;
+  // Exact
+  if (supplierMap[n]) return supplierMap[n];
+  // Contains
+  for (const [k, v] of Object.entries(supplierMap)) {
+    const nk = normalise(k);
+    if (n === nk || n.includes(nk) || nk.includes(n)) return v;
+  }
+  // Word overlap (3+ significant words)
+  const nw = new Set(n.split(' ').filter(w => w.length > 3));
+  let best = 0, bestId = null;
+  for (const [k, v] of Object.entries(supplierMap)) {
+    const kw = normalise(k).split(' ').filter(w => w.length > 3);
+    const overlap = kw.filter(w => nw.has(w)).length;
+    if (overlap >= 2 && overlap > best) { best = overlap; bestId = v; }
+  }
+  return bestId;
+}
+
+// =====================================================================
+// GENERATE POST
+// =====================================================================
+function generatePost() {
+  const title   = document.getElementById('postTitle').value.trim() || 'Deals and Updates';
+  const byline  = document.getElementById('postByline').value.trim();
+  const introRaw = document.getElementById('postIntro').value.trim();
+
+  const introHtml = introRaw.split('\n\n')
+    .map(p => `<p>${escHtml(p.replace(/\n/g, '<br>'))}</p>`)
+    .join('\n');
+
+  const dealsHtml = savedDeals.map(deal => {
+    const id   = (deal.supplier_id || '').trim();
+    const url  = id ? `https://advisor.fora.travel/partners/hotels/${id}` : '#';
+    const link = `<a href="${url}">${escHtml(deal.supplier_name)}</a>`;
+    const exc  = deal.exclusive_to_fora ? ' ⭐ Exclusive to Fora' : '';
+    const dt   = deal.deal_title ? `${escHtml(deal.deal_title)} at ` : '';
+    const bs   = escHtml(deal.booking_start || '');
+    const be   = deal.booking_end ? ` &ndash; ${escHtml(deal.booking_end)}` : '';
+    const ts   = escHtml(deal.travel_start || '');
+    const te   = deal.travel_end ? ` &ndash; ${escHtml(deal.travel_end)}` : '';
+    const desc = escHtml(deal.description || '');
+    return `<div class="deal-entry">
+  <p><strong>${dt}${link}</strong>${exc}</p>
+  <ul>
+    <li><strong>Booking Window:</strong> ${bs}${be}</li>
+    <li><strong>Travel Window:</strong> ${ts}${te}</li>
+    <li><strong>More Info:</strong> ${desc}</li>
+  </ul>
+</div>`;
+  }).join('\n');
+
+  const html = `<h1>${escHtml(title)}</h1>
+<p class="byline">${escHtml(byline)}</p>
+${introHtml}
+${dealsHtml}`;
+
+  document.getElementById('postPreview').innerHTML = html;
+  document.getElementById('outputSection').style.display = 'block';
+  document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// =====================================================================
+// COPY / DOWNLOAD
+// =====================================================================
+async function copyPost() {
+  const preview = document.getElementById('postPreview');
+  const btn = document.getElementById('btnCopy');
+  try {
+    const htmlBlob = new Blob([preview.innerHTML], { type: 'text/html' });
+    const textBlob = new Blob([preview.innerText], { type: 'text/plain' });
+    await navigator.clipboard.write([new ClipboardItem({ 'text/html': htmlBlob, 'text/plain': textBlob })]);
+  } catch {
+    const range = document.createRange();
+    range.selectNodeContents(preview);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    document.execCommand('copy');
+  }
+  btn.textContent = '✓ Copied!';
+  btn.classList.add('copied');
+  setTimeout(() => { btn.textContent = 'Copy to Clipboard'; btn.classList.remove('copied'); }, 2500);
+}
+
+function downloadPost() {
+  const title = document.getElementById('postTitle').value.trim() || 'forum-post';
+  const slug  = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-');
+  const body  = document.getElementById('postPreview').innerHTML;
+  const page  = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>${escHtml(title)}</title>
+<style>body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:15px;line-height:1.6;color:#1a1a1a;max-width:660px;margin:40px auto;padding:0 24px 60px}h1{font-size:1.2em;margin-bottom:2px}.byline{color:#888;font-size:.85em;margin:0 0 20px}p{margin:0 0 10px}.deal-entry{margin-bottom:20px}.deal-entry p{margin-bottom:3px}ul{margin:0;padding-left:20px}li{margin-bottom:1px}a{color:#1a1a1a}</style>
+</head><body>${body}</body></html>`;
+  const a = Object.assign(document.createElement('a'), {
+    href: URL.createObjectURL(new Blob([page], { type: 'text/html' })),
+    download: `${slug}.html`
+  });
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function restart() {
+  files = []; savedDeals = []; currentIndex = 0;
+  document.getElementById('folderStatus').textContent = 'No folder selected — use Chrome or Edge';
+  document.getElementById('folderStatus').className = 'folder-status';
+  document.getElementById('folderStatusHeader').textContent = '';
+  document.getElementById('step1num').classList.remove('done');
+  document.getElementById('dealEntrySection').style.display = 'none';
+  document.getElementById('generateSection').style.display = 'none';
+  document.getElementById('outputSection').style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function escHtml(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// =====================================================================
+// GEMINI API KEY
+// =====================================================================
+function saveApiKey() {
+  const key = document.getElementById('geminiKey').value.trim();
+  if (!key) return;
+  geminiApiKey = key;
+  localStorage.setItem('fora_gemini_key', key);
+  document.getElementById('apiKeyStatus').textContent = '✓ Key saved — screenshots will be auto-read';
+  document.getElementById('apiKeyStatus').className = 'api-key-status ok';
+}
+
+
+// =====================================================================
+// GEMINI SCREENSHOT READING
+// =====================================================================
+async function readWithGemini(fileObj) {
+  if (!geminiApiKey) return;
+
+  // Show loading spinner
+  document.getElementById('aiLoading').classList.add('on');
+  document.getElementById('aiFilledNote').style.display = 'none';
+
+  try {
+    // Convert image to base64
+    const buffer = await fileObj.arrayBuffer();
+    const bytes = new Uint8Array(buffer);
+    let binary = '';
+    for (let i = 0; i < bytes.byteLength; i++) binary += String.fromCharCode(bytes[i]);
+    const base64 = btoa(binary);
+    const mimeType = fileObj.type || 'image/png';
+
+    const prompt = `Extract hotel deal information from this screenshot. Return ONLY a JSON object — no markdown, no code fences, no other text:
+{
+  "hotel_name": "full hotel or property name",
+  "deal_title": "the deal or offer title (e.g. '4th Night Complimentary')",
+  "booking_start": "booking window start (e.g. 'Jan 15' or 'Now')",
+  "booking_end": "booking window end (e.g. 'Sep 30, 2026')",
+  "travel_start": "travel window start",
+  "travel_end": "travel window end",
+  "description": "1–2 sentence summary of the offer (the More Info text)",
+  "exclusive_to_fora": false
+}
+Set exclusive_to_fora to true only if the screenshot says 'Exclusive to Fora'. Use empty string for any field not visible.`;
+
+    const res = await fetch(
+      'https://api.groq.com/openai/v1/chat/completions',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${geminiApiKey}`
+        },
+        body: JSON.stringify({
+          model: 'meta-llama/llama-4-scout-17b-16e-instruct',
+          temperature: 0.1,
+          max_tokens: 512,
+          messages: [{
+            role: 'user',
+            content: [
+              { type: 'image_url', image_url: { url: `data:${mimeType};base64,${base64}` } },
+              { type: 'text', text: prompt }
+            ]
+          }]
+        })
+      }
+    );
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error?.message || `API error ${res.status} — check your key at console.groq.com`);
+    }
+
+    const data = await res.json();
+    const text = data.choices?.[0]?.message?.content || '';
+    const jsonMatch = text.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) throw new Error('No JSON returned');
+    const deal = JSON.parse(jsonMatch[0]);
+
+    // Fill form fields
+    document.getElementById('fSupplier').value     = deal.hotel_name    || '';
+    document.getElementById('fTitle').value        = deal.deal_title    || '';
+    document.getElementById('fBookStart').value    = deal.booking_start || '';
+    document.getElementById('fBookEnd').value      = deal.booking_end   || '';
+    document.getElementById('fTravelStart').value  = deal.travel_start  || '';
+    document.getElementById('fTravelEnd').value    = deal.travel_end    || '';
+    document.getElementById('fDescription').value  = deal.description   || '';
+    document.getElementById('fExclusive').checked  = !!deal.exclusive_to_fora;
+
+    // Trigger supplier ID lookup
+    onSupplierInput(deal.hotel_name || '');
+
+    // Show success note
+    const note = document.getElementById('aiFilledNote');
+    note.textContent = '✓ Auto-filled — review and save';
+    note.className = 'ai-filled-note';
+    note.style.display = 'block';
+
+  } catch (err) {
+    const note = document.getElementById('aiFilledNote');
+    note.textContent = `⚠ AI read failed: ${err.message}`;
+    note.className = 'ai-filled-note error';
+    note.style.display = 'block';
+  } finally {
+    document.getElementById('aiLoading').classList.remove('on');
+  }
+}
+
+init();
+</script>
+</body>
+</html>

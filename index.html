@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campaign Tracker | Fora Travel</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <img src="../partner-portal/logo.png" alt="Fora" class="header-logo">
+            <div class="header-title">
+                <h1>Campaign Tracker</h1>
+                <p class="tagline">Travel Partners Marketing</p>
+            </div>
+        </div>
+        <div class="header-right">
+            <a href="forum-post-generator.html" class="btn-add" style="text-decoration:none;">Forum Post Generator</a>
+        <button class="btn-add" id="btnAddCampaign">+ New Campaign</button>
+        </div>
+    </header>
+
+    <!-- Stats Bar -->
+    <section class="stats-bar" id="statsBar">
+        <div class="stat-item">
+            <span class="stat-label">Total Campaigns</span>
+            <span class="stat-value" id="statTotal">0</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Active Now</span>
+            <span class="stat-value" id="statActive">0</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Completed</span>
+            <span class="stat-value" id="statCompleted">0</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Total Revenue</span>
+            <span class="stat-value" id="statRevenue">$0</span>
+        </div>
+    </section>
+
+    <!-- Filters + View Tabs -->
+    <section class="toolbar">
+        <div class="filters">
+            <select id="filterPartner" class="filter-select">
+                <option value="">All Partners</option>
+            </select>
+            <select id="filterType" class="filter-select">
+                <option value="">All Types</option>
+                <option value="Email">Email</option>
+                <option value="Social Media">Social Media</option>
+                <option value="Event">Event</option>
+                <option value="Newsletter">Newsletter</option>
+                <option value="Webinar">Webinar</option>
+                <option value="Co-branded">Co-branded</option>
+            </select>
+            <select id="filterStatus" class="filter-select">
+                <option value="">All Statuses</option>
+                <option value="Planned">Planned</option>
+                <option value="Live">Live</option>
+                <option value="Completed">Completed</option>
+            </select>
+        </div>
+        <div class="view-tabs">
+            <button class="view-tab active" data-view="table">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/>
+                    <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+                </svg>
+                Table
+            </button>
+            <button class="view-tab" data-view="calendar">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/>
+                    <line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+                Calendar
+            </button>
+            <button class="view-tab" data-view="partner">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+                By Partner
+            </button>
+        </div>
+    </section>
+
+    <!-- Main Content Area -->
+    <main class="content">
+        <!-- Table View -->
+        <div class="view" id="viewTable">
+            <div class="table-card">
+                <table id="campaignTable">
+                    <thead>
+                        <tr>
+                            <th>Campaign</th>
+                            <th>Partner</th>
+                            <th>Type</th>
+                            <th>Dates</th>
+                            <th>Status</th>
+                            <th>Impressions</th>
+                            <th>Clicks</th>
+                            <th>Bookings</th>
+                            <th>Revenue</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="campaignTableBody">
+                    </tbody>
+                </table>
+                <div class="empty-state" id="emptyTable" style="display:none;">
+                    <p>No campaigns match your filters.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calendar View -->
+        <div class="view hidden" id="viewCalendar">
+            <div class="calendar-controls">
+                <button class="cal-nav" id="calPrev">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+                </button>
+                <h2 class="cal-month" id="calMonthLabel">February 2026</h2>
+                <button class="cal-nav" id="calNext">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                </button>
+                <button class="cal-today-btn" id="calToday">Today</button>
+            </div>
+            <div class="calendar-grid">
+                <div class="cal-header">Sun</div>
+                <div class="cal-header">Mon</div>
+                <div class="cal-header">Tue</div>
+                <div class="cal-header">Wed</div>
+                <div class="cal-header">Thu</div>
+                <div class="cal-header">Fri</div>
+                <div class="cal-header">Sat</div>
+                <div id="calendarCells"></div>
+            </div>
+        </div>
+
+        <!-- Partner View -->
+        <div class="view hidden" id="viewPartner">
+            <div id="partnerCards"></div>
+        </div>
+    </main>
+
+    <!-- Add/Edit Campaign Modal -->
+    <div class="modal-overlay hidden" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modalTitle">New Campaign</h2>
+                <button class="modal-close" id="modalClose">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <form id="campaignForm">
+                <input type="hidden" id="campaignId">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="campaignName">Campaign Name</label>
+                        <input type="text" id="campaignName" placeholder="e.g., Spring Newsletter Feature" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="campaignPartner">Partner</label>
+                        <input type="text" id="campaignPartner" placeholder="e.g., Hotel Chapter Roma" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="campaignType">Type</label>
+                        <select id="campaignType" required>
+                            <option value="">Select type...</option>
+                            <option value="Email">Email</option>
+                            <option value="Social Media">Social Media</option>
+                            <option value="Event">Event</option>
+                            <option value="Newsletter">Newsletter</option>
+                            <option value="Webinar">Webinar</option>
+                            <option value="Co-branded">Co-branded</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="campaignStatus">Status</label>
+                        <select id="campaignStatus" required>
+                            <option value="Planned">Planned</option>
+                            <option value="Live">Live</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="campaignStart">Start Date</label>
+                        <input type="date" id="campaignStart" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="campaignEnd">End Date</label>
+                        <input type="date" id="campaignEnd" required>
+                    </div>
+                </div>
+
+                <div class="form-divider">
+                    <span>Results (optional)</span>
+                </div>
+
+                <div class="form-row form-row-4">
+                    <div class="form-group">
+                        <label for="campaignImpressions">Impressions</label>
+                        <input type="number" id="campaignImpressions" placeholder="0" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="campaignClicks">Clicks</label>
+                        <input type="number" id="campaignClicks" placeholder="0" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="campaignBookings">Bookings</label>
+                        <input type="number" id="campaignBookings" placeholder="0" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="campaignRevenue">Revenue ($)</label>
+                        <input type="number" id="campaignRevenue" placeholder="0" min="0">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="campaignNotes">Notes</label>
+                    <textarea id="campaignNotes" rows="3" placeholder="Any details, links, or follow-ups..."></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-cancel" id="btnCancel">Cancel</button>
+                    <button type="submit" class="btn-save">Save Campaign</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
