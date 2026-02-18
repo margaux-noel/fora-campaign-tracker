@@ -1363,7 +1363,7 @@ async function readWithGemini(fileObj) {
     const prompt = `Extract hotel deal information from this screenshot. Return ONLY a JSON object — no markdown, no code fences, no other text:
 {
   "hotel_name": "full hotel or property name",
-  "deal_title": "the deal or offer title (e.g. '4th Night Complimentary')",
+  "deal_title": "the deal title, standardised using these rules: (1) Any variation of a free/complimentary night offer → 'Xth Night Free' using a numeral ordinal, e.g. '4th Night Free', '3rd Night Free'. (2) Any variation of stay-X-pay-Y → 'Stay X, Pay Y' using numerals, e.g. 'Stay 3, Pay 2'. (3) Percentage discounts → 'X% Off' followed by a short qualifier if needed. (4) All other titles: keep concise, use title case, prefer numerals over words.",
   "booking_start": "booking window start (e.g. 'Jan 15' or 'Now')",
   "booking_end": "booking window end (e.g. 'Sep 30, 2026')",
   "travel_start": "travel window start",
